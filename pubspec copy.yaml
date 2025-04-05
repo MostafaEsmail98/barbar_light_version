@@ -1,0 +1,154 @@
+name: frezka
+description: A new Flutter project.
+
+# publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 3.3.1+20
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # COMMON
+  nb_utils: ^7.0.5
+  google_fonts: ^6.2.1
+  html: ^0.15.4
+  http: ^1.2.2
+  intl: ^0.19.0
+  cached_network_image: ^3.4.1
+  url_launcher: ^6.3.1
+  flutter_custom_tabs: ^2.1.0
+  flutter_html: ^3.0.0-beta.1
+  share_plus: ^10.1.0
+  speech_to_text: ^7.0.0
+  webview_flutter: ^4.10.0
+
+  # State Management
+  mobx: ^2.3.3+2
+  flutter_mobx: ^2.2.1+1
+
+
+  # FIREBASE
+  firebase_crashlytics: ^4.1.3
+  firebase_core: ^3.6.0
+  firebase_storage: ^12.3.3
+  cloud_firestore: ^5.4.4
+  carousel_slider: ^5.0.0
+
+  #Firebase Notification
+  flutter_local_notifications: ^17.2.3
+  firebase_messaging: ^15.1.3
+
+  # COUNTRY PICKER
+  country_picker: ^2.0.26
+
+  # SOCIAL LOGIN
+  google_sign_in: ^6.2.1
+  the_apple_sign_in: ^1.1.1
+
+  # BARCODE
+  syncfusion_flutter_barcodes: ^27.1.53
+
+  # Image
+  image_picker: ^1.1.2
+  photo_view: ^0.15.0
+  lottie: ^3.1.3
+
+  #MAP
+  geolocator: ^13.0.1
+  geocoding: ^3.0.0
+
+
+  # PAYMENT GATEWAYS
+  razorpay_flutter: ^1.3.7
+  flutter_stripe: ^11.2.0
+  curved_labeled_navigation_bar: ^2.0.5
+  flutter_rating_bar: ^4.0.1
+  font_awesome_flutter: ^10.8.0
+  flutter_svg: ^2.0.17
+  flutter_paypal_checkout:
+    git:
+      url: https://github.com/iqonic-design/flutter_paypal_checkout.git
+      ref: main
+  flutterwave_standard:
+    git:
+      url: https://github.com/iqonic-design/flutterwave_standard.git
+      ref: main
+  cinetpay:
+    git:
+      url: https://github.com/iqonic-design/cinetpay.git
+      ref: main
+  midpay:
+    git:
+      url: https://github.com/iqonic-design/midpay.git
+      ref: main  
+  phonepe_payment_sdk: ^2.0.3
+
+  flutter_paystack:
+    git:
+      url: https://github.com/iqonic-design/flutter_paystack.git
+      ref: 1.1.0
+
+  flutter_localizations:
+    sdk: flutter
+  firebase_auth: ^5.4.1
+  intl_phone_field: ^3.2.0
+  fluttertoast: ^8.2.12
+  audioplayers: ^6.2.0
+  flutter_launcher_icons: ^0.14.3
+  android_notification_icons: ^0.0.1
+
+#  uuid: any
+#  crypto: any
+dependency_overrides:
+  http: ^1.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner:
+  mobx_codegen: ^2.6.1
+  #flutter packages pub run build_runner build --delete-conflicting-outputs --enable-experiment=records
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/flags/
+    - assets/images/
+    - assets/icons/
+    - assets/lottie/
+    - assets/audio/
+
+
+
+
+  fonts:
+    - family: Graphik
+      fonts:
+        - asset: assets/fonts/GraphikArabic-Super.ttf
+          weight: 900
+        - asset: assets/fonts/GraphikArabic-Black.ttf
+          weight: 800
+        - asset: assets/fonts/GraphikArabic-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/GraphikArabic-Extralight.ttf
+          weight: 300
+        - asset: assets/fonts/GraphikArabic-Light.ttf
+          weight: 200
+        - asset: assets/fonts/GraphikArabic-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/GraphikArabic-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/GraphikArabic-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/GraphikArabic-Semibold.ttf
+          weight: 600
+
+
+
+
+

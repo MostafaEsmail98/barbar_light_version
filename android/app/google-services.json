@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "259491379925",
+    "project_id": "barabar-app",
+    "storage_bucket": "barabar-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:259491379925:android:d19e5c1eb9b77b9b22805c",
+        "android_client_info": {
+          "package_name": "com.metafortech.barbershop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfeeCJFSVMUHM3yg_OC3qqqm2xDz-UTGY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
