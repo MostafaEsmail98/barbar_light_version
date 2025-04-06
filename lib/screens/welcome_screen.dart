@@ -96,7 +96,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         color: secondaryColor,
                         width: 150,
                         onTap: () async {
-                          SignUpScreen().launch(context);
+                          // SignUpScreen().launch(context);
                         },
                       ),
                     ],
