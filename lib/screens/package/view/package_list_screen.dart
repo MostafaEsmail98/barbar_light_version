@@ -154,7 +154,7 @@ class _PackageListScreenState extends State<PackageListScreen> {
                         bookingRequestStore.selectedPackageList.clear();
                         bookingRequestStore.selectedPackageList.add(package);
                         bookingRequestStore.setPackagePurchase(true);
-                        BookingScreen(services: widget.services.validate(), packages: bookingRequestStore.selectedPackageList, isPackagePurchase: true)
+                        BookingScreen(employeeId: -1,services: widget.services.validate(), packages: bookingRequestStore.selectedPackageList, isPackagePurchase: true)
                             .launch(context)
                             .then((value) => setState(() {}));
                       },

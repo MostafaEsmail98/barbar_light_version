@@ -197,3 +197,21 @@ Future<BaseResponseModel> deleteAccountCompletely() async {
       await buildHttpResponse(APIEndPoints.deleteUserAccount,
           request: {}, method: HttpMethodType.POST)));
 }
+
+Future<BaseResponseModel> resetPasswordAPI(request) async {
+  return BaseResponseModel.fromJson(await handleResponse(
+      await buildHttpResponse(APIEndPoints.resetPassword + "?mobile=" + request,
+          method: HttpMethodType.GET)));
+}
+
+Future<BaseResponseModel> confirmPasswordAPI(request) async {
+  return BaseResponseModel.fromJson(await handleResponse(
+      await buildHttpResponse(APIEndPoints.confirmPassword,
+          request: request, method: HttpMethodType.POST)));
+}
+
+Future<BaseResponseModel> changeResetPasswordAPI(Map request) async {
+  return BaseResponseModel.fromJson(await handleResponse(
+      await buildHttpResponse(APIEndPoints.confirmResetPassword,
+          request: request, method: HttpMethodType.POST)));
+}

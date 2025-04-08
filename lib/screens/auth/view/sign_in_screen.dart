@@ -6,6 +6,7 @@ import 'package:frezka/screens/auth/auth_repository.dart';
 import 'package:frezka/screens/auth/model/user_data_model.dart';
 import 'package:frezka/screens/auth/view/forgot_password_screen.dart';
 import 'package:frezka/screens/auth/view/otp_verification_screen.dart';
+
 // import 'package:frezka/screens/auth/view/sign_up_screen.dart';
 import 'package:frezka/screens/dashboard/view/dashboard_screen.dart';
 import 'package:frezka/utils/cache_helper.dart';
@@ -56,6 +57,7 @@ class _SignInScreenState extends State<SignInScreen> {
   TextEditingController signUpMobileCont = TextEditingController();
 
   FocusNode emailFocus = FocusNode();
+
   // FocusNode passwordFocus = FocusNode();
 
   bool isRemember = true;
@@ -81,7 +83,6 @@ class _SignInScreenState extends State<SignInScreen> {
     }).catchError((e) {
       toast(e.toString());
     });
-    ;
   }
 
 // checkOtp end
@@ -293,20 +294,22 @@ class _SignInScreenState extends State<SignInScreen> {
                                 boxShadow: isLogin
                                     ? [
                                         BoxShadow(
-                                          color: Color(
-                                              0x80FFFFFF), // Semi-transparent white (#FFFFFF80)
-                                          offset: Offset(
-                                              0, 2.19), // X: 0px, Y: 2.19px
-                                          blurRadius: 1.1, // Blur radius
+                                          color: Color(0x80FFFFFF),
+                                          // Semi-transparent white (#FFFFFF80)
+                                          offset: Offset(0, 2.19),
+                                          // X: 0px, Y: 2.19px
+                                          blurRadius: 1.1,
+                                          // Blur radius
                                           spreadRadius: 0, // Spread radius
                                         ),
                                         // Second inset shadow (black)
                                         BoxShadow(
-                                          color: Color(
-                                              0x80000000), // Semi-transparent black (#00000080)
-                                          offset: Offset(
-                                              0, -2.19), // X: 0px, Y: -2.19px
-                                          blurRadius: 1.1, // Blur radius
+                                          color: Color(0x80000000),
+                                          // Semi-transparent black (#00000080)
+                                          offset: Offset(0, -2.19),
+                                          // X: 0px, Y: -2.19px
+                                          blurRadius: 1.1,
+                                          // Blur radius
                                           spreadRadius: 0, // Spread radius
                                         ),
                                       ]
@@ -314,10 +317,10 @@ class _SignInScreenState extends State<SignInScreen> {
                                 gradient: isLogin
                                     ? LinearGradient(
                                         colors: [
-                                          Color(
-                                              0xFFB0BEC5), // Start color (light grey, replace as needed)
-                                          Color(
-                                              0xFF546E7A), // End color (dark grey, replace as needed)
+                                          Color(0xFFB0BEC5),
+                                          // Start color (light grey, replace as needed)
+                                          Color(0xFF546E7A),
+                                          // End color (dark grey, replace as needed)
                                         ],
                                         begin: Alignment
                                             .centerRight, // Gradient starts from top
@@ -355,20 +358,22 @@ class _SignInScreenState extends State<SignInScreen> {
                                 boxShadow: !isLogin
                                     ? [
                                         BoxShadow(
-                                          color: Color(
-                                              0x80FFFFFF), // Semi-transparent white (#FFFFFF80)
-                                          offset: Offset(
-                                              0, 2.19), // X: 0px, Y: 2.19px
-                                          blurRadius: 1.1, // Blur radius
+                                          color: Color(0x80FFFFFF),
+                                          // Semi-transparent white (#FFFFFF80)
+                                          offset: Offset(0, 2.19),
+                                          // X: 0px, Y: 2.19px
+                                          blurRadius: 1.1,
+                                          // Blur radius
                                           spreadRadius: 0, // Spread radius
                                         ),
                                         // Second inset shadow (black)
                                         BoxShadow(
-                                          color: Color(
-                                              0x80000000), // Semi-transparent black (#00000080)
-                                          offset: Offset(
-                                              0, -2.19), // X: 0px, Y: -2.19px
-                                          blurRadius: 1.1, // Blur radius
+                                          color: Color(0x80000000),
+                                          // Semi-transparent black (#00000080)
+                                          offset: Offset(0, -2.19),
+                                          // X: 0px, Y: -2.19px
+                                          blurRadius: 1.1,
+                                          // Blur radius
                                           spreadRadius: 0, // Spread radius
                                         ),
                                       ]
@@ -376,10 +381,10 @@ class _SignInScreenState extends State<SignInScreen> {
                                 gradient: !isLogin
                                     ? LinearGradient(
                                         colors: [
-                                          Color(
-                                              0xFFB0BEC5), // Start color (light grey, replace as needed)
-                                          Color(
-                                              0xFF546E7A), // End color (dark grey, replace as needed)
+                                          Color(0xFFB0BEC5),
+                                          // Start color (light grey, replace as needed)
+                                          Color(0xFF546E7A),
+                                          // End color (dark grey, replace as needed)
                                         ],
                                         begin: Alignment
                                             .centerRight, // Gradient starts from top
@@ -592,6 +597,19 @@ class _SignInScreenState extends State<SignInScreen> {
                         ],
                       ),
                     ),
+                    10.height,
+                    TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ForgotPasswordScreen(),
+                              ));
+                        },
+                        child: Text(
+                          locale.forgotPassword,
+                          style: TextStyle(color: Colors.red, fontSize: 18),
+                        ))
                   ],
                   SizedBox(height: screenHeight * 0.03),
                 ],

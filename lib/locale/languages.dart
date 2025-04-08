@@ -1039,4 +1039,5 @@ abstract class BaseLanguage {
   String get cash;
   String get confirmReservation;
   String get sendCode;
+  String get enterYourNumber;
 }

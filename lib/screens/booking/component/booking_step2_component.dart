@@ -269,7 +269,7 @@ class _BookingStep2ComponentState extends State<BookingStep2Component> {
                       appStore.setLoading(true);
 
                       await verifySlot(bookingRequestStore.employeeId, '${bookingRequestStore.date} ${bookingRequestStore.time}:00').then((value) {
-                        log(bookingRequestStore.toJson());
+                        log(bookingRequestStore.toJson(employeeId: widget.employeeId!));
                         customStepperController.nextPage(duration: 200.milliseconds, curve: Curves.easeOut);
                       }).catchError((e) {
                         toast(e.toString());
@@ -328,7 +328,7 @@ class _BookingStep2ComponentState extends State<BookingStep2Component> {
 
                 appStore.setLoading(true);
 
-                bookingUpdate(bookingRequestStore.toJson(dateTime: updatedDateTime, bookingId: widget.bookingId, bookingStatus: BookingStatusConst.PENDING, isUpdate: true)).then((value) {
+                bookingUpdate(bookingRequestStore.toJson(dateTime: updatedDateTime, bookingId: widget.bookingId, bookingStatus: BookingStatusConst.PENDING, isUpdate: true, employeeId: widget.employeeId!)).then((value) {
                   appStore.setLoading(false);
 
                   onBookingDetailUpdate.call();

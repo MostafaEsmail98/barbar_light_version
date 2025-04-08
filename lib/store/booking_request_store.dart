@@ -158,7 +158,7 @@ abstract class _BookingRequestStore with Store {
       {String? dateTime,
       int? bookingId,
       paymentMethodval,
-      int? employeeId,
+      required int employeeId,
       String? bookingStatus,
       bool isUpdate = false,
       bool isRescheduleBooking = false}) {

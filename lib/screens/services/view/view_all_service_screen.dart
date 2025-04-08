@@ -418,7 +418,7 @@ class _ViewAllServiceScreenState extends State<ViewAllServiceScreen> {
                         price: bookingRequestStore.totalAmount,
                         onTap: () {
                           hideKeyboard(context);
-                          BookingScreen(services: selectedService).launch(context);
+                          BookingScreen(employeeId: -1,services: selectedService).launch(context);
                         },
                       )
                     : Offstage(),

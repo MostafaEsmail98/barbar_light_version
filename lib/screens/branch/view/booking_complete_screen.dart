@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:frezka/components/app_common_dialog.dart';
 import 'package:frezka/components/app_scaffold.dart';
 import 'package:frezka/paymentGateways/services/paypal_service.dart';
 
@@ -317,24 +316,9 @@ class _BookingCompleteScreenState extends State<BookingCompleteScreen> {
                                                   fontWeight: FontWeight.bold),
                                             ),
                                             Text(
-                                                DateFormat('yyyy-MM-dd hh:mm')
-                                                        .format(DateTime.parse(
-                                                                widget.data.date.toString() +
-                                                                    ' ' +
-                                                                    widget.data
-                                                                        .time)
-                                                            .add(Duration(
-                                                                hours: 1)))
-                                                        .toString() +
-                                                    ' - ' +
-                                                    DateFormat('yyyy-MM-dd hh:mm')
-                                                        .format(DateTime.parse(
-                                                                widget.data.date.toString() +
-                                                                    ' ' +
-                                                                    widget.data.time)
-                                                            .add(Duration(hours: 0)))
-                                                        .toString(),
-                                                style: TextStyle(color: Colors.grey))
+                                                "${widget.data.date} - ${widget.data.time}",
+                                                style: TextStyle(
+                                                    color: Colors.grey))
                                           ]),
                                       // Column(
                                       //     crossAxisAlignment: CrossAxisAlignment.start,
@@ -369,17 +353,20 @@ class _BookingCompleteScreenState extends State<BookingCompleteScreen> {
                           borderRadius: BorderRadius.circular(18),
                           // color: Colors.white,
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.asset(ic_confirm_check,
-                                height: 100, width: 100, color: primaryColor),
-                            5.height,
-                            Text(locale.yourBookingForHairBookingMessage,
-                                style: boldTextStyle(size: 20),
-                                textAlign: TextAlign.center),
-                          ],
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(ic_confirm_check,
+                                  height: 100, width: 100, color: primaryColor),
+                              5.height,
+                              Text(locale.yourBookingForHairBookingMessage,
+                                  style: boldTextStyle(size: 20),
+                                  textAlign: TextAlign.center),
+                            ],
+                          ),
                         ),
                       ),
                     ),

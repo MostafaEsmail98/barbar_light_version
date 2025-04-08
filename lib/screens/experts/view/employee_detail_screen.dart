@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:frezka/components/cached_image_widget.dart';
 import 'package:frezka/screens/branch/view/branch_times_screen.dart';
 import 'package:frezka/screens/experts/component/employee_social_accounts_component.dart';
@@ -137,43 +138,48 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                                                       style: boldTextStyle(
                                                           size: 30,
                                                           color: Colors.white)),
-                                                  InkWell(
-                                                    onTap: () {
-                                                      showDialog(
-                                                        context: context,
-                                                        builder: (context) =>
-                                                            Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child:
-                                                              AddReviewDialog(),
+                                                  Row(
+                                                    children: [
+                                                      RatingBar.builder(
+                                                        initialRating: employeeData
+                                                                .ratingStar
+                                                                ?.toDouble() ??
+                                                            0,
+                                                        minRating: 1,
+                                                        direction:
+                                                            Axis.horizontal,
+                                                        allowHalfRating: true,
+                                                        itemCount: 5,
+                                                        ignoreGestures: true,
+                                                        itemPadding:
+                                                            EdgeInsets.zero,
+                                                        itemSize: 20,
+                                                        itemBuilder:
+                                                            (context, _) =>
+                                                                Icon(
+                                                          Icons.star,
+                                                          size: 20,
+                                                          color: Colors.amber,
                                                         ),
-                                                      );
-                                                    },
-                                                    child: Row(
-                                                      children: [
-                                                        Icon(Icons.star,
-                                                            size: 22,
-                                                            color: getRatingBarColor(
-                                                                employeeData
-                                                                    .ratingStar
-                                                                    .validate()
-                                                                    .toInt())),
-                                                        if (employeeData
-                                                                .totalReview
-                                                                .validate() >=
-                                                            1)
-                                                          Text(
-                                                            '${employeeData.totalReview.validate()}',
-                                                            style:
-                                                                secondaryTextStyle(
-                                                                    size: 12,
-                                                                    color: Colors
-                                                                        .white),
-                                                          )
-                                                      ],
-                                                    ),
+                                                        onRatingUpdate:
+                                                            (rating) {
+                                                          print(rating);
+                                                        },
+                                                      ),
+                                                      5.width,
+                                                      if (employeeData
+                                                              .totalReview
+                                                              .validate() >=
+                                                          1)
+                                                        Text(
+                                                          '${employeeData.totalReview.validate()}',
+                                                          style:
+                                                              secondaryTextStyle(
+                                                                  size: 12,
+                                                                  color: Colors
+                                                                      .white),
+                                                        )
+                                                    ],
                                                   ),
                                                   TextIcon(
                                                     text: widget.address,
@@ -185,11 +191,6 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                                                             color: Colors.white,
                                                             size: 13),
                                                   ),
-                                                  Text(
-                                                      "${calculateAgeFromString(employeeData.dateOfBirth.validate())} ${locale.year} , ${locale.expert} ${employeeData.expert.validate(value: "0")} ${locale.years} ",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 13)),
                                                 ],
                                               ).paddingTop(25)
                                             ],

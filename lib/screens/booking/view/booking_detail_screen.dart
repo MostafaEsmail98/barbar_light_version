@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:frezka/components/app_scaffold.dart';
+import 'package:frezka/models/review_data.dart';
 import 'package:frezka/screens/booking/component/booking_information_component.dart';
 import 'package:frezka/screens/booking/component/location_information_component.dart';
 import 'package:frezka/screens/booking/component/payment_information_component.dart';
 import 'package:frezka/utils/app_common.dart';
+import 'package:frezka/utils/colors.dart';
 import 'package:frezka/utils/common_base.dart';
 import 'package:frezka/utils/constants.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../../../components/add_review_dialog.dart';
 import '../../../components/empty_error_state_widget.dart';
 import '../../../components/loader_widget.dart';
 import '../../../main.dart';
+import '../../review/view/review_all_screen.dart';
 import '../booking_repository.dart';
 import '../component/booking_packages_component.dart';
 import '../component/booking_service_information_component.dart';
@@ -162,6 +166,34 @@ class _BookingDetailScreenState extends State<BookingDetailScreen> {
                         await getInvoice(snap.data?.id.toString());
                       },
                     ).paddingBottom(40),
+                  24.height,
+                  InkWell(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: AddReviewDialog(
+                            customerReview: ReviewData(id: snap.data!.id),
+                            staffId: snap.data!.employeeId,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 60,
+                      decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Center(
+                          child: Text(
+                        locale.rate,
+                        style: boldTextStyle(size: LABEL_TEXT_SIZE)
+                            .copyWith(color: Colors.white),
+                      )),
+                    ),
+                  )
                 ],
                 onSwipeRefresh: () async {
                   init();

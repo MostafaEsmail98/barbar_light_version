@@ -24,8 +24,16 @@ class BookingScreen extends StatefulWidget {
   final bool isReschedule;
   final bool isPackagePurchase;
   final bool isPackageReclaim;
+  final int employeeId;
 
-  const BookingScreen({super.key, required this.services, this.isPackageReclaim = false, this.packages, this.isPackagePurchase = false, this.isReschedule = false});
+  const BookingScreen(
+      {super.key,
+      required this.services,
+      this.isPackageReclaim = false,
+      this.packages,
+      this.isPackagePurchase = false,
+      this.isReschedule = false,
+      required this.employeeId});
 
   @override
   _BookingScreenState createState() => _BookingScreenState();
@@ -42,24 +50,39 @@ class _BookingScreenState extends State<BookingScreen> {
 
     bookingRequestStore = BookingRequestStore();
 
-    bookingRequestStore.setSelectedServiceListInRequest(widget.services, isRescheduleInRequest: widget.isReschedule);
+    bookingRequestStore.setSelectedServiceListInRequest(widget.services,
+        isRescheduleInRequest: widget.isReschedule);
     if (widget.isPackagePurchase) {
-      bookingRequestStore.setSelectedPackageListInRequest(widget.packages.validate());
+      bookingRequestStore
+          .setSelectedPackageListInRequest(widget.packages.validate());
       bookingRequestStore.setPackagePurchase(true);
     }
     if (widget.isPackageReclaim) {
       bookingRequestStore.setPackageReclaim(true);
     }
     if (branchConfigurationCached != null) {
-      bookingRequestStore.setTaxPercentageInRequest(branchConfigurationCached!.tax.validate());
+      bookingRequestStore
+          .setTaxPercentageInRequest(branchConfigurationCached!.tax.validate());
     }
   }
 
   void init() async {
     stepsList = [
-      CustomStep(title: locale.staff, page: BookingStep1Component(isReschedule: widget.isReschedule)),
-      CustomStep(title: '${locale.date} & ${locale.time}', page: BookingStep2Component(isReschedule: widget.isReschedule)),
-      CustomStep(title: locale.payment, page: BookingStep3Component(isReschedule: widget.isReschedule)),
+      CustomStep(
+          title: locale.staff,
+          page: BookingStep1Component(isReschedule: widget.isReschedule)),
+      CustomStep(
+          title: '${locale.date} & ${locale.time}',
+          page: BookingStep2Component(
+            isReschedule: widget.isReschedule,
+            employeeId: widget.employeeId,
+          )),
+      CustomStep(
+          title: locale.payment,
+          page: BookingStep3Component(
+            isReschedule: widget.isReschedule,
+            employeeId: widget.employeeId,
+          )),
     ];
   }
 
@@ -81,8 +104,10 @@ class _BookingScreenState extends State<BookingScreen> {
           return Future.value(true);
         } else {
           bookingRequestStore.time = '';
-          customStepperController.previousPage(duration: 300.milliseconds, curve: Curves.linear);
-          LiveStream().emit(LiveStreamKeyConst.LIVESTREAM_CHANGE_STEP, currentStep);
+          customStepperController.previousPage(
+              duration: 300.milliseconds, curve: Curves.linear);
+          LiveStream()
+              .emit(LiveStreamKeyConst.LIVESTREAM_CHANGE_STEP, currentStep);
           return Future.value(false);
         }
       },

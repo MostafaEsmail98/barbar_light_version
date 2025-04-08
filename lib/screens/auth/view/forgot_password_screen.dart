@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:frezka/components/app_scaffold.dart';
 import 'package:frezka/main.dart';
 import 'package:frezka/screens/auth/auth_repository.dart';
+import 'package:frezka/screens/auth/view/otp_verification_screen.dart';
+import 'package:frezka/screens/auth/view/reset_password.dart';
 import 'package:frezka/utils/colors.dart';
 import 'package:frezka/utils/common_base.dart';
 import 'package:frezka/utils/model_keys.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:nb_utils/nb_utils.dart';
+
+import 'change_password_screen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   @override
@@ -29,25 +35,51 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     //
   }
 
+  TextEditingController phoneCont = TextEditingController();
+
   Future<void> forgotPwd() async {
     if (formKey.currentState!.validate()) {
       hideKeyboard(context);
       formKey.currentState!.save();
       appStore.setLoading(true);
 
-      Map req = {
-        CommonKey.email: emailCont.text.validate(),
-      };
-
-      forgotPasswordAPI(req).then((res) {
+      resetPasswordAPI(phoneCont.text.validate()).then((res) {
         appStore.setLoading(false);
         finish(context);
-
         toast(res.message.validate());
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => OtpVerificationScreen(
+                phoneNumber: phoneCont.text.validate(),
+                onTap: checkOtp,
+              ),
+            ));
       }).catchError((e) {
         toast(e.toString(), print: true);
       }).whenComplete(() => appStore.setLoading(false));
     }
+  }
+
+// checkOtp start
+  checkOtp(otp) {
+    confirmPasswordAPI({'mobile': phoneCont.text.trim(), 'otp': otp})
+        .then((resault) async {
+      print('checkOtp resault');
+      print(resault.toJson());
+      toast(resault.message.validate());
+      if (resault.status == true) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ResetPassword(
+                      phoneNumber: phoneCont.text.trim(),
+                      otp: otp,
+                    )));
+      }
+    }).catchError((e) {
+      toast(e.toString());
+    });
   }
 
   @override
@@ -57,66 +89,125 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      key: formKey,
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-              width: context.width(),
-              decoration: boxDecorationDefault(
-                color: context.primaryColor,
-                borderRadius: radiusOnly(topRight: defaultRadius, topLeft: defaultRadius),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(locale.forgotPassword, style: boldTextStyle(color: Colors.white)),
-                  IconButton(
-                    onPressed: () {
-                      finish(context);
-                    },
-                    icon: Icon(Icons.clear, color: Colors.white, size: 20),
-                  )
-                ],
-              ),
-            ),
-            Column(
+    return SafeArea(
+      child: AppScaffold(
+        showAppBar: false,
+        body: Form(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          key: formKey,
+          child: SingleChildScrollView(
+            child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(locale.enterYourEmailAddress, style: boldTextStyle()),
-                6.height,
-                Text(locale.aResetPasswordLink, style: secondaryTextStyle()),
-                24.height,
-                Observer(
-                  builder: (_) => AppTextField(
-                    textFieldType: TextFieldType.EMAIL_ENHANCED,
-                    controller: emailCont,
-                    autoFocus: true,
-                    errorThisFieldRequired: locale.thisFieldIsRequired,
-                    decoration: inputDecoration(context, hint: locale.email),
-                  ).visible(!appStore.isLoading, defaultWidget: Loader()),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  width: context.width(),
+                  decoration: boxDecorationDefault(
+                    color: context.primaryColor,
+                    borderRadius: radiusOnly(
+                        topRight: defaultRadius, topLeft: defaultRadius),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(locale.forgotPassword,
+                          style: boldTextStyle(color: Colors.white)),
+                      IconButton(
+                        onPressed: () {
+                          finish(context);
+                        },
+                        icon: Icon(Icons.clear, color: Colors.white, size: 20),
+                      )
+                    ],
+                  ),
                 ),
-                24.height,
-                AppButton(
-                  text: locale.resetPassword,
-                  color: secondaryColor,
-                  textColor: Colors.white,
-                  width: context.width() - context.navigationBarHeight,
-                  onTap: () {
-                    forgotPwd();
-                  },
-                ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(locale.enterYourNumber,
+                        style: boldTextStyle(color: Colors.white)),
+                    6.height,
+                    Text(locale.aResetPasswordLink,
+                        style: secondaryTextStyle(color: Colors.grey)),
+                    24.height,
+                    _buildPhoneField(
+                      controller: phoneCont,
+                      hintText: locale.phoneNumber,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return locale.phoneIsEmpty;
+                        }
+                        return null;
+                      },
+                    ),
+                    24.height,
+                    AppButton(
+                      text: locale.next,
+                      color: secondaryColor,
+                      textColor: Colors.white,
+                      width: context.width() - context.navigationBarHeight,
+                      onTap: () {
+                        forgotPwd();
+                      },
+                    ),
+                  ],
+                ).paddingAll(16),
               ],
-            ).paddingAll(16),
-          ],
+            ),
+          ),
         ),
       ),
+    );
+  }
+
+  Widget _buildPhoneField(
+      {required String hintText,
+      bool isPassword = false,
+      TextEditingController? controller,
+      String? Function(String?)? validator}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Directionality(
+          textDirection: TextDirection.ltr,
+          child: IntlPhoneField(
+            disableAutoFillHints: true,
+            showDropdownIcon: false,
+            decoration: InputDecoration(
+              errorStyle: TextStyle(
+                  color: const Color.fromARGB(255, 244, 114, 105),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600),
+              filled: true,
+              isDense: true,
+              fillColor: Colors.white,
+              suffixIcon: isPassword
+                  ? Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Image.asset(
+                        "assets/icons/lock.png",
+                        width: 33,
+                        height: 33,
+                      ),
+                    )
+                  : null,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(35),
+                borderSide: BorderSide.none,
+              ),
+            ),
+            style: TextStyle(color: Colors.black),
+            initialCountryCode: 'JO',
+            // controller: controller,
+            onChanged: (phone) {
+              print(phone.completeNumber);
+              controller!.text = phone.completeNumber;
+            },
+          ),
+        ),
+      ],
     );
   }
 }

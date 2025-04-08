@@ -89,10 +89,6 @@ class _BranchTimesScreenState extends State<BranchTimesScreen> {
   String startTime = DEFAULT_SLOT_INTERVAL_DURATION;
   String endTime = DEFAULT_SLOT_INTERVAL_DURATION;
 
-  void init() async {
-    fetchBranchConfigurationApi();
-  }
-
   List intevalsListBookings = [];
   List reserved_periods = [];
 
@@ -130,6 +126,7 @@ class _BranchTimesScreenState extends State<BranchTimesScreen> {
         .then((res) {
       setState(() => reserved_periods = res.reserved_periods!.toList());
     });
+    selectDay();
   }
 
   void generateDaysForMonth(int monthIndex) {
@@ -165,7 +162,7 @@ class _BranchTimesScreenState extends State<BranchTimesScreen> {
     });
   }
 
-  void selectDay(int index) {
+  void selectDay({int index = 0}) {
     final selectedDate = DateTime(
       currentYear,
       selectedMonthIndex + 1,
@@ -342,17 +339,9 @@ class _BranchTimesScreenState extends State<BranchTimesScreen> {
                         Map<String, String> day = entry.value;
                         bool isSelected =
                             selectedDayIndex == index + DateTime.now().day;
-                        // print('entry');
-                        // print(entry);
-
-// (selectedDayIndex + 1) >
-//                                 int.parse(day['date'].toString())
-//                             ? Container()
-//                             :
                         return GestureDetector(
                           onTap: () {
-                            print("---------------------------------$index");
-                            selectDay(index);
+                            selectDay(index: index);
                           },
                           child: Container(
                             width: 60,
@@ -516,8 +505,14 @@ class _BranchTimesScreenState extends State<BranchTimesScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                            "${intevalsListBookings[index]['start']} - ${intevalsListBookings[index]['end']}"),
+                                        FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Text(
+                                            "${intevalsListBookings[index]['start']} - ${intevalsListBookings[index]['end']}",
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                        ),
                                         Row(
                                           children: [
                                             SizedBox(
@@ -788,7 +783,7 @@ List<Map<String, String>> splitIntoHourlyMaps(String start, String end) {
     bool bIsAm = b['start']!.contains('am');
     if (aIsAm && !bIsAm) return -1;
     if (!aIsAm && bIsAm) return 1;
-    return 0; // لا تغيير إذا كانت نفس الفترة
+    return 0;
   });
 
   return intervals;

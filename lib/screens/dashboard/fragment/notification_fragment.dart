@@ -59,7 +59,6 @@ class _NotificationFragmentState extends State<NotificationFragment> {
             appBarHeight: 70,
             color: Colors.transparent,
             showLeadingIcon: true,
-
             actions: [
               if (showMarkAsReadButton)
                 IconButton(
@@ -95,9 +94,11 @@ class _NotificationFragmentState extends State<NotificationFragment> {
                     shrinkWrap: true,
                     itemCount: list.length,
                     padding: EdgeInsets.only(top: 8),
-                    slideConfiguration: SlideConfiguration(duration: 400.milliseconds, delay: 50.milliseconds),
+                    slideConfiguration: SlideConfiguration(
+                        duration: 400.milliseconds, delay: 50.milliseconds),
                     listAnimationType: ListAnimationType.FadeIn,
-                    fadeInConfiguration: FadeInConfiguration(duration: 2.seconds),
+                    fadeInConfiguration:
+                        FadeInConfiguration(duration: 2.seconds),
                     physics: AlwaysScrollableScrollPhysics(),
                     emptyWidget: NoDataWidget(
                       title: locale.noNotifications,
@@ -116,22 +117,42 @@ class _NotificationFragmentState extends State<NotificationFragment> {
                       return GestureDetector(
                         onTap: () async {
                           /// Tap on notification redirect to booking detail screen
-                          if (notificationData.data!.notificationDetail!.id.validate() > 0) {
-                            if (notificationData.data!.notificationDetail!.notificationGroup == "shop") {
-                              OrderDetailScreen(orderId: notificationData.data!.notificationDetail!.id.validate(), orderCode: notificationData.data!.notificationDetail!.orderCode.validate())
-                                  .launch(context, pageRouteAnimation: PageRouteAnimation.Fade);
+                          if (notificationData.data!.notificationDetail!.id
+                                  .validate() >
+                              0) {
+                            if (notificationData.data!.notificationDetail!
+                                    .notificationGroup ==
+                                "shop") {
+                              OrderDetailScreen(
+                                      orderId: notificationData
+                                          .data!.notificationDetail!.id
+                                          .validate(),
+                                      orderCode: notificationData
+                                          .data!.notificationDetail!.orderCode
+                                          .validate())
+                                  .launch(context,
+                                      pageRouteAnimation:
+                                          PageRouteAnimation.Fade);
                             } else {
-                              BookingDetailScreen(bookingId: notificationData.data!.notificationDetail!.id.validate().toInt()).launch(context);
+                              BookingDetailScreen(
+                                      bookingId: notificationData
+                                          .data!.notificationDetail!.id
+                                          .validate()
+                                          .toInt())
+                                  .launch(context);
                             }
                           }
                         },
-                        child: NotificationWidget(notificationData: notificationData),
+                        child: NotificationWidget(
+                            notificationData: notificationData),
                       );
                     },
                   );
                 },
               ),
-              Observer(builder: (context) => LoaderWidget().visible(appStore.isLoading)),
+              Observer(
+                  builder: (context) =>
+                      LoaderWidget().visible(appStore.isLoading)),
             ],
           ),
         ],

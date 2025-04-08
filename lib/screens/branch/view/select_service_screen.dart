@@ -112,6 +112,7 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
 
   String tempDate = "";
   String tempTime = "";
+
   @override
   void initState() {
     init();
@@ -119,6 +120,7 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
     tempTime = bookingRequestStore.time.validate();
     print((tempDate));
     print(convertTo24HourFormat(tempTime));
+    print("${widget.employeeId}++++++++++");
     super.initState();
   }
 
@@ -645,7 +647,7 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
     print(appStore);
     appStore.branchId = widget.BranchId;
 
-    print(bookingRequestStore.toJson());
+    print(bookingRequestStore.toJson(employeeId: widget.employeeId));
 
     appStore.setLoading(true);
     String dateString = tempDate + " " + convertTo24HourFormat(tempTime);
@@ -653,7 +655,7 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
     try {
       initialDateTime = DateTime.parse(dateString);
       bookingRequestStore.employeeName = widget.employeeName ?? '';
-
+      bookingRequestStore.employeeId = widget.employeeId;
       bookingRequestStore.selectedServiceList
           .validate()
           .forEachIndexed((element, index) {

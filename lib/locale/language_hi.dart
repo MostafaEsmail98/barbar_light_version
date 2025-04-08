@@ -1660,4 +1660,8 @@ class LanguageHi extends BaseLanguage {
   @override
   // TODO: implement sendCode
   String get sendCode => throw UnimplementedError();
+
+  @override
+  // TODO: implement enterYourNumber
+  String get enterYourNumber => throw UnimplementedError();
 }

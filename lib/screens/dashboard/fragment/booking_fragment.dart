@@ -28,6 +28,7 @@ class _BookingFragmentState extends State<BookingFragment> {
 
   Future<List<BookingStatusData>>? future;
 
+
   @override
   void initState() {
     super.initState();
@@ -41,7 +42,6 @@ class _BookingFragmentState extends State<BookingFragment> {
 
   Future<List<BookingStatusData>>? fetchBookingStatusApi() {
     future = getBookingStatus();
-
     return future;
   }
 

@@ -224,6 +224,7 @@ class BookingItemComponent extends StatelessWidget {
                       elevation: 0,
                       onTap: () {
                         BookingScreen(
+                          employeeId: bookingData.employeeId!,
                                 services: bookingData.serviceList.validate(),
                                 isReschedule: true)
                             .launch(context);

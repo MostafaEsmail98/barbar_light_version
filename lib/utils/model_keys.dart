@@ -21,6 +21,7 @@ class CommonKey {
 
 class UserKeys {
   static String userId = 'user_id';
+  static String otp = 'otp';
   static String firstName = 'first_name';
   static String lastName = 'last_name';
   static String email = 'email';

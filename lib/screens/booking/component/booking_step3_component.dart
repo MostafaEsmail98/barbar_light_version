@@ -39,8 +39,9 @@ import '../booking_repository.dart';
 
 class BookingStep3Component extends StatefulWidget {
   final bool isReschedule;
+  final int employeeId ;
 
-  BookingStep3Component({this.isReschedule = false});
+  BookingStep3Component({this.isReschedule = false, required this.employeeId});
 
   @override
   _BookingStep3ComponentState createState() => _BookingStep3ComponentState();
@@ -122,6 +123,7 @@ class _BookingStep3ComponentState extends State<BookingStep3Component> {
       /// Save Booking API
       saveBookingAPI(
         bookingRequestStore.toJson(
+          employeeId: widget.employeeId,
             dateTime: formatDate(initialDateTime.toString(),
                 format: DateFormatConst.NEW_FORMAT, isLanguageNeeded: false),
             isRescheduleBooking: widget.isReschedule),

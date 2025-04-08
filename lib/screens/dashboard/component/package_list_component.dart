@@ -70,7 +70,7 @@ class _PackageListComponentState extends State<PackageListComponent> {
                                 bookingRequestStore.selectedPackageList.clear();
                                 bookingRequestStore.selectedPackageList.add(data);
                                 bookingRequestStore.setPackagePurchase(true);
-                                BookingScreen(services: [], packages: bookingRequestStore.selectedPackageList, isPackagePurchase: true).launch(context).then((value) => setState(() {}));
+                                BookingScreen(employeeId:-1,services: [], packages: bookingRequestStore.selectedPackageList, isPackagePurchase: true).launch(context).then((value) => setState(() {}));
                               },
                             ),
                           );

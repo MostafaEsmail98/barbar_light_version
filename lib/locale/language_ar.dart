@@ -106,7 +106,7 @@ class LanguageAr extends BaseLanguage {
 
   @override
   String get aResetPasswordLink =>
-      'سيتم إرسال رابط إعادة تعيين كلمة المرور إلى عنوان البريد الإلكتروني الذي تم إدخاله أعلاه';
+      'سيتم إرسال كود التأكيد إلى رقم الهاتف الذي تم إدخاله أعلاه';
 
   @override
   String get resetPassword => 'إعادة تعيين كلمة المرور';
@@ -1637,4 +1637,8 @@ class LanguageAr extends BaseLanguage {
   @override
   // TODO: implement sendCode
   String get sendCode => "لقد قمنا بإرسال رمز التأكيد على الرقم المنتهي";
+
+  @override
+  // TODO: implement enterYourNumber
+  String get enterYourNumber => "ادخل رقم الهاتف";
 }

@@ -107,7 +107,7 @@ class LanguageEn extends BaseLanguage {
 
   @override
   String get aResetPasswordLink =>
-      'A reset password link will be sent to the above entered email address';
+      'A reset password verify Code will be sent to the above entered Mobile';
 
   @override
   String get resetPassword => 'Reset Password';
@@ -1659,4 +1659,8 @@ class LanguageEn extends BaseLanguage {
   @override
   // TODO: implement sendCode
   String get sendCode => 'sendCode';
+
+  @override
+  // TODO: implement enterYourNumber
+  String get enterYourNumber => "Enter Your Number";
 }

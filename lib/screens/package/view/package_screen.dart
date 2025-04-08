@@ -112,6 +112,7 @@ class _PackagesScreenState extends State<PackagesScreen> {
                       bookingRequestStore.setPackagePurchase(true);
                       bookingRequestStore.setPackageReclaim(true);
                       BookingScreen(
+                        employeeId: -1,
                         services: [],
                         packages: bookingRequestStore.selectedPackageList,
                         isPackagePurchase: bookingRequestStore.isPackagePurchase,
