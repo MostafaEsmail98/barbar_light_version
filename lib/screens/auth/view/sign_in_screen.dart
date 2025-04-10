@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:frezka/main.dart';
@@ -7,24 +6,17 @@ import 'package:frezka/screens/auth/model/user_data_model.dart';
 import 'package:frezka/screens/auth/view/forgot_password_screen.dart';
 import 'package:frezka/screens/auth/view/otp_verification_screen.dart';
 
-// import 'package:frezka/screens/auth/view/sign_up_screen.dart';
 import 'package:frezka/screens/dashboard/view/dashboard_screen.dart';
 import 'package:frezka/utils/cache_helper.dart';
 import 'package:frezka/utils/colors.dart';
-import 'package:frezka/utils/common_base.dart';
 import 'package:frezka/utils/constants.dart';
 import 'package:frezka/utils/images.dart';
 import 'package:frezka/utils/model_keys.dart';
 import 'package:frezka/utils/push_notification_service.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:nb_utils/nb_utils.dart';
-
 import '../../../components/app_scaffold.dart';
-import '../../../components/back_widget.dart';
 import '../../../network/network_utils.dart';
-import '../../../utils/app_common.dart';
-import '../../branch/view/select_branch_screen.dart';
-import '../services/otp_login_auth_service.dart';
 
 class SignInScreen extends StatefulWidget {
   final bool isRegeneratingToken;
@@ -89,7 +81,7 @@ class _SignInScreenState extends State<SignInScreen> {
 // resendOtp start
   resendOtp(phoneNumber) {
     print({'mobile': phoneNumber});
-    ResendOtpRegisterAPI(phoneNumber).then((resault) async {
+    ResendOtpRegisterAPI(phoneNumber.text.validate()).then((resault) async {
       print('resendOtp resault');
       print(resault.toJson());
       toast(resault.message.validate());
@@ -128,11 +120,7 @@ class _SignInScreenState extends State<SignInScreen> {
         appStore.setLoading(false);
         toast(registerResponse.message.validate());
         // finish(context); تم استخدام mobile من قبل.
-        if (registerResponse.status == true ||
-            registerResponse.message == "تم استخدام mobile من قبل.") {
-          if (registerResponse.message == "تم استخدام mobile من قبل.") {
-            resendOtp(signUpMobileCont.text.trim());
-          }
+        if (registerResponse.status == true) {
           Navigator.push(
               context,
               MaterialPageRoute(

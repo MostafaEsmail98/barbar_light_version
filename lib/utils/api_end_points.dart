@@ -9,8 +9,8 @@ class APIEndPoints {
   static final String changePassword = 'change-password';
   static final String forgotPassword = 'forgot-password';
   static final String resetPassword = 'reset-password-for';
-  static final String confirmPassword = 'confirm-reset-password';
-  static final String confirmResetPassword = 'change-password-reset';
+  static final String confirmPassword = 'confirm-reset-password/';
+  static final String confirmResetPassword = 'change-password-reset/';
   static final String VerifyOtpRegister =
       'verify-otp'; //post DATA: { mobile, otp }
   static final String resendOtpRegister = 'resend-otp'; //get DATA: { mobile }

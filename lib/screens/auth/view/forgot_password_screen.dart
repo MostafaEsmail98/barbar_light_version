@@ -65,7 +65,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   checkOtp(otp) {
     confirmPasswordAPI({'mobile': phoneCont.text.trim(), 'otp': otp})
         .then((resault) async {
-      print('checkOtp resault');
       print(resault.toJson());
       toast(resault.message.validate());
       if (resault.status == true) {

@@ -104,9 +104,8 @@ Future<BaseResponseModel> VerifyOtpRegisterAPI(Map request) async {
 // VerifyOtpRegisterAPI
 Future<BaseResponseModel> ResendOtpRegisterAPI(mobile) async {
   return BaseResponseModel.fromJson(await handleResponse(
-      await buildHttpResponse(
-          APIEndPoints.resendOtpRegister + '?mobile=' + mobile,
-          method: HttpMethodType.POST)));
+      await buildHttpResponse(APIEndPoints.resendOtpRegister,
+          request: {"mobile": mobile}, method: HttpMethodType.POST)));
 }
 // endVerifyOtpRegisterAPI
 
@@ -200,8 +199,8 @@ Future<BaseResponseModel> deleteAccountCompletely() async {
 
 Future<BaseResponseModel> resetPasswordAPI(request) async {
   return BaseResponseModel.fromJson(await handleResponse(
-      await buildHttpResponse(APIEndPoints.resetPassword + "?mobile=" + request,
-          method: HttpMethodType.GET)));
+      await buildHttpResponse(APIEndPoints.resetPassword + "/",
+          request: {"mobile": request}, method: HttpMethodType.POST)));
 }
 
 Future<BaseResponseModel> confirmPasswordAPI(request) async {
