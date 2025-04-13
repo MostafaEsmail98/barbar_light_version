@@ -237,416 +237,418 @@ class _BranchTimesScreenState extends State<BranchTimesScreen> {
   Widget build(BuildContext context) {
     return AppScaffold(
       showAppBar: false,
-      body: Column(
-        children: [
-          AppBar(
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            centerTitle: true,
-            title: Text(
-              locale.reserveNearestTime,
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-            leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.white,
-                )),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  locale.selectDate,
-                  style: TextStyle(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            AppBar(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              centerTitle: true,
+              title: Text(
+                locale.reserveNearestTime,
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              leading: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.arrow_back_ios,
                     color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                SizedBox(
-                  height: 30,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          reverse: false,
-                          child: Row(
-                            children: monthList.asMap().entries.map((entry) {
-                              int index = entry.key;
-                              String month = entry.value;
-                              bool isSelected = selectedMonthIndex == index;
-                              // return (selectedDayIndex + 1) >
-                              // print(entry);
-                              return 0 == entry.key
-                                  ? Container()
-                                  : GestureDetector(
-                                      onTap: () {
-                                        changeBySelectMonth(index);
-                                        isSelected == true;
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8.0),
-                                        child: Text(
-                                          month,
-                                          style: TextStyle(
-                                            color: isSelected
-                                                ? primaryColor
-                                                : Colors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      GestureDetector(
-                        onTap: () => changeMonth(-1),
-                        child: Icon(Icons.arrow_back_ios, color: Colors.white),
-                      ),
-                      GestureDetector(
-                        onTap: () => changeMonth(1),
-                        child:
-                            Icon(Icons.arrow_forward_ios, color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 5),
-                SizedBox(
-                  height: 100,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    reverse: false,
-                    child: Row(
-                      children: days.asMap().entries.map((entry) {
-                        int index = entry.key;
-                        Map<String, String> day = entry.value;
-                        bool isSelected =
-                            selectedDayIndex == index + DateTime.now().day;
-                        return GestureDetector(
-                          onTap: () {
-                            selectDay(index: index);
-                          },
-                          child: Container(
-                            width: 60,
-                            height: 90,
-                            margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                            decoration: BoxDecoration(
-                              color: isSelected ? primaryColor : Colors.white,
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  day['date']!,
-                                  style: TextStyle(
-                                    color: isSelected
-                                        ? Colors.white
-                                        : Colors.black,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                                Text(
-                                  day['day']!,
-                                  style: TextStyle(
-                                    color: isSelected
-                                        ? Colors.white
-                                        : Colors.black,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      }).toList(),
+                  )),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    locale.selectDate,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-                Text(
-                  locale.selectTime,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    height: 30,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            reverse: false,
+                            child: Row(
+                              children: monthList.asMap().entries.map((entry) {
+                                int index = entry.key;
+                                String month = entry.value;
+                                bool isSelected = selectedMonthIndex == index;
+                                // return (selectedDayIndex + 1) >
+                                // print(entry);
+                                return 0 == entry.key
+                                    ? Container()
+                                    : GestureDetector(
+                                        onTap: () {
+                                          changeBySelectMonth(index);
+                                          isSelected == true;
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8.0),
+                                          child: Text(
+                                            month,
+                                            style: TextStyle(
+                                              color: isSelected
+                                                  ? primaryColor
+                                                  : Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                              }).toList(),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        GestureDetector(
+                          onTap: () => changeMonth(-1),
+                          child: Icon(Icons.arrow_back_ios, color: Colors.white),
+                        ),
+                        GestureDetector(
+                          onTap: () => changeMonth(1),
+                          child:
+                              Icon(Icons.arrow_forward_ios, color: Colors.white),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Container(
-                  height: 350,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
+                  const SizedBox(height: 5),
+                  SizedBox(
+                    height: 100,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      reverse: false,
+                      child: Row(
+                        children: days.asMap().entries.map((entry) {
+                          int index = entry.key;
+                          Map<String, String> day = entry.value;
+                          bool isSelected =
+                              selectedDayIndex == index + DateTime.now().day;
+                          return GestureDetector(
+                            onTap: () {
+                              selectDay(index: index);
+                            },
+                            child: Container(
+                              width: 60,
+                              height: 90,
+                              margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                              decoration: BoxDecoration(
+                                color: isSelected ? primaryColor : Colors.white,
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    day['date']!,
+                                    style: TextStyle(
+                                      color: isSelected
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  Text(
+                                    day['day']!,
+                                    style: TextStyle(
+                                      color: isSelected
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
                   ),
-                  child: SnapHelperWidget(
-                    future: fetchBranchConfigurationApi(),
-                    loadingWidget: LoaderWidget(),
-                    errorBuilder: (error) {
-                      return NoDataWidget(
-                        title: error,
-                        retryText: locale.reload,
-                        imageWidget: ErrorStateWidget(),
-                        onRetry: () {
-                          appStore.setLoading(true);
-                          fetchBranchConfigurationApi();
-                          setState(() {});
-                        },
-                      );
-                    },
-                    onSuccess: (snap) {
-                      if (snap.data == null) {
+                  Text(
+                    locale.selectTime,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Container(
+                    height: 350,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: SnapHelperWidget(
+                      future: fetchBranchConfigurationApi(),
+                      loadingWidget: LoaderWidget(),
+                      errorBuilder: (error) {
                         return NoDataWidget(
-                          title: locale.noTimeSlots,
+                          title: error,
                           retryText: locale.reload,
+                          imageWidget: ErrorStateWidget(),
                           onRetry: () {
+                            appStore.setLoading(true);
                             fetchBranchConfigurationApi();
                             setState(() {});
                           },
                         );
-                      }
-
-                      // if (snap.data!.slot.validate().any((element) =>
-                      //     element.day ==
-                      //     selectedHorizontalDate.weekday.getWeekDayName)) {
-                      //   startTime = snap.data!.slot
-                      //       .validate()
-                      //       .firstWhere((element) =>
-                      //           element.day ==
-                      //           selectedHorizontalDate.weekday.getWeekDayName)
-                      //       .startTime
-                      //       .validate();
-                      //   endTime = snap.data!.slot
-                      //       .validate()
-                      //       .firstWhere((element) =>
-                      //           element.day ==
-                      //           selectedHorizontalDate.weekday.getWeekDayName)
-                      //       .endTime
-                      //       .validate();
-                      //   appStore.setLoading(true);
-                      // }
-
-                      return ListView.separated(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 10),
-                          itemBuilder: (context, index) {
-                            bool isSelected = selectedIndex == index;
-                            // print(dayToNumber(
-                            //     snap.data?.slot?[index].day.toString()));
-                            //  snap.data?.slot?[index].day!=
-                            // return dayToNumber(snap.data?.slot?[index].id
-                            //             .toString()) ==
-                            // var dayindexedbook = dayToNumber(
-                            //     snap.data?.slot?[index].day.toString());
-                            // var intevalsList = splitIntoHourlyMaps(
-                            //     snap.data?.slot?[dayindexedbook].startTime
-                            //         .toString(),
-                            //     snap.data?.slot?[dayindexedbook].endTime);
-                            // var element;
-                            // print('intevalsList');
-                            // print(intevalsList);
-
-                            // element = intevalsList[0];
-                            // print('element');
-                            // print(element);
-                            return StatefulBuilder(
-                              builder: (BuildContext context,
-                                  StateSetter setStates) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    print(bookingRequestStore.date +
-                                        ' ' +
-                                        convertTo24HourFormat(
-                                            intevalsListBookings[index]
-                                                ['start']));
-                                    print(convertTo24HourFormat(
-                                        intevalsListBookings[index]['start']));
-                                    print(reserved_periods);
-                                    print(bookingRequestStore.date);
-                                    if (reserved_periods.contains(
-                                        bookingRequestStore.date +
-                                            ' ' +
-                                            convertTo24HourFormat(
-                                                intevalsListBookings[index]
-                                                    ['start']))) {
-                                      toast(
-                                          'الموعد محجوز بالفعل اختر موعد اخر !');
-                                      return;
-                                    }
-                                    setStates(() => isSelected = !isSelected);
-                                    if (isSelected) {
-                                      setState(() => selectedIndex = index);
-                                      bookingRequestStore.setTimeInRequest(
-                                          intevalsListBookings[index]['start']
-                                              .toString());
-                                      print(intevalsListBookings[index]['start']
-                                          .toString());
-                                    } else {
-                                      setState(() => selectedIndex = -1);
-                                      bookingRequestStore.setTimeInRequest('');
-                                    }
-                                  },
-                                  child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        FittedBox(
-                                          fit: BoxFit.scaleDown,
-                                          child: Text(
-                                            "${intevalsListBookings[index]['start']} - ${intevalsListBookings[index]['end']}",
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ),
-                                        Row(
-                                          children: [
-                                            SizedBox(
-                                              height: 37,
-                                              child: DottedLine(
-                                                direction: Axis.vertical,
-                                              ),
+                      },
+                      onSuccess: (snap) {
+                        if (snap.data == null) {
+                          return NoDataWidget(
+                            title: locale.noTimeSlots,
+                            retryText: locale.reload,
+                            onRetry: () {
+                              fetchBranchConfigurationApi();
+                              setState(() {});
+                            },
+                          );
+                        }
+        
+                        // if (snap.data!.slot.validate().any((element) =>
+                        //     element.day ==
+                        //     selectedHorizontalDate.weekday.getWeekDayName)) {
+                        //   startTime = snap.data!.slot
+                        //       .validate()
+                        //       .firstWhere((element) =>
+                        //           element.day ==
+                        //           selectedHorizontalDate.weekday.getWeekDayName)
+                        //       .startTime
+                        //       .validate();
+                        //   endTime = snap.data!.slot
+                        //       .validate()
+                        //       .firstWhere((element) =>
+                        //           element.day ==
+                        //           selectedHorizontalDate.weekday.getWeekDayName)
+                        //       .endTime
+                        //       .validate();
+                        //   appStore.setLoading(true);
+                        // }
+        
+                        return ListView.separated(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 10),
+                            itemBuilder: (context, index) {
+                              bool isSelected = selectedIndex == index;
+                              // print(dayToNumber(
+                              //     snap.data?.slot?[index].day.toString()));
+                              //  snap.data?.slot?[index].day!=
+                              // return dayToNumber(snap.data?.slot?[index].id
+                              //             .toString()) ==
+                              // var dayindexedbook = dayToNumber(
+                              //     snap.data?.slot?[index].day.toString());
+                              // var intevalsList = splitIntoHourlyMaps(
+                              //     snap.data?.slot?[dayindexedbook].startTime
+                              //         .toString(),
+                              //     snap.data?.slot?[dayindexedbook].endTime);
+                              // var element;
+                              // print('intevalsList');
+                              // print(intevalsList);
+        
+                              // element = intevalsList[0];
+                              // print('element');
+                              // print(element);
+                              return StatefulBuilder(
+                                builder: (BuildContext context,
+                                    StateSetter setStates) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      print(bookingRequestStore.date +
+                                          ' ' +
+                                          convertTo24HourFormat(
+                                              intevalsListBookings[index]
+                                                  ['start']));
+                                      print(convertTo24HourFormat(
+                                          intevalsListBookings[index]['start']));
+                                      print(reserved_periods);
+                                      print(bookingRequestStore.date);
+                                      if (reserved_periods.contains(
+                                          bookingRequestStore.date +
+                                              ' ' +
+                                              convertTo24HourFormat(
+                                                  intevalsListBookings[index]
+                                                      ['start']))) {
+                                        toast(
+                                            'الموعد محجوز بالفعل اختر موعد اخر !');
+                                        return;
+                                      }
+                                      setStates(() => isSelected = !isSelected);
+                                      if (isSelected) {
+                                        setState(() => selectedIndex = index);
+                                        bookingRequestStore.setTimeInRequest(
+                                            intevalsListBookings[index]['start']
+                                                .toString());
+                                        print(intevalsListBookings[index]['start']
+                                            .toString());
+                                      } else {
+                                        setState(() => selectedIndex = -1);
+                                        bookingRequestStore.setTimeInRequest('');
+                                      }
+                                    },
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          FittedBox(
+                                            fit: BoxFit.scaleDown,
+                                            child: Text(
+                                              "${intevalsListBookings[index]['start']} - ${intevalsListBookings[index]['end']}",
+                                              style:
+                                                  TextStyle(color: Colors.black),
                                             ),
-                                            Expanded(
-                                              child: Container(
-                                                margin: EdgeInsets.all(16),
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 10),
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color: reserved_periods.contains(bookingRequestStore
+                                          ),
+                                          Row(
+                                            children: [
+                                              SizedBox(
+                                                height: 37,
+                                                child: DottedLine(
+                                                  direction: Axis.vertical,
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Container(
+                                                  margin: EdgeInsets.all(16),
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 10),
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color: reserved_periods.contains(bookingRequestStore
+                                                                      .date +
+                                                                  ' ' +
+                                                                  convertTo24HourFormat(intevalsListBookings[index]
+                                                                      ['start']))
+                                                              ? Colors.red
+                                                              : (!isSelected &&
+                                                                      selectedIndex !=
+                                                                          index
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .green)),
+                                                      color:
+                                                          // snap
+                                                          //             .data
+                                                          //             ?.slot?[
+                                                          //                 dayindexedbook]
+                                                          //             .slotAvailability(
+                                                          //                 selectedHorizontalDate) ??
+                                                          !reserved_periods.contains(
+                                                                  bookingRequestStore
+                                                                          .date +
+                                                                      ' ' +
+                                                                      convertTo24HourFormat(
+                                                                          intevalsListBookings[index]['start']))
+                                                              ? isSelected && selectedIndex == index
+                                                                  ? Colors.white
+                                                                  : primaryColor
+                                                              : redColor,
+                                                      borderRadius: BorderRadius.circular(15)),
+                                                  child: Center(
+                                                      child: Text(
+                                                    // !(snap
+                                                    //             .data
+                                                    //             ?.slot?[
+                                                    //                 dayindexedbook]
+                                                    //             .slotAvailability(
+                                                    //                 selectedHorizontalDate) ??
+                                                    //         false)
+                                                    reserved_periods.contains(
+                                                            bookingRequestStore
                                                                     .date +
                                                                 ' ' +
-                                                                convertTo24HourFormat(intevalsListBookings[index]
-                                                                    ['start']))
-                                                            ? Colors.red
-                                                            : (!isSelected &&
-                                                                    selectedIndex !=
-                                                                        index
-                                                                ? Colors.white
-                                                                : Colors
-                                                                    .green)),
-                                                    color:
-                                                        // snap
-                                                        //             .data
-                                                        //             ?.slot?[
-                                                        //                 dayindexedbook]
-                                                        //             .slotAvailability(
-                                                        //                 selectedHorizontalDate) ??
-                                                        !reserved_periods.contains(
+                                                                convertTo24HourFormat(
+                                                                    intevalsListBookings[
+                                                                            index]
+                                                                        [
+                                                                        'start']))
+                                                        ? locale.reserved
+                                                        : locale
+                                                            .availableReserveNow,
+                                                    style: TextStyle(
+                                                        color: reserved_periods.contains(
                                                                 bookingRequestStore
                                                                         .date +
                                                                     ' ' +
                                                                     convertTo24HourFormat(
-                                                                        intevalsListBookings[index]['start']))
-                                                            ? isSelected && selectedIndex == index
+                                                                        intevalsListBookings[
+                                                                                index]
+                                                                            [
+                                                                            'start']))
+                                                            ? Colors.white
+                                                            : !isSelected &&
+                                                                    selectedIndex !=
+                                                                        index
                                                                 ? Colors.white
-                                                                : primaryColor
-                                                            : redColor,
-                                                    borderRadius: BorderRadius.circular(15)),
-                                                child: Center(
-                                                    child: Text(
-                                                  // !(snap
-                                                  //             .data
-                                                  //             ?.slot?[
-                                                  //                 dayindexedbook]
-                                                  //             .slotAvailability(
-                                                  //                 selectedHorizontalDate) ??
-                                                  //         false)
-                                                  reserved_periods.contains(
-                                                          bookingRequestStore
-                                                                  .date +
-                                                              ' ' +
-                                                              convertTo24HourFormat(
-                                                                  intevalsListBookings[
-                                                                          index]
-                                                                      [
-                                                                      'start']))
-                                                      ? locale.reserved
-                                                      : locale
-                                                          .availableReserveNow,
-                                                  style: TextStyle(
-                                                      color: reserved_periods.contains(
-                                                              bookingRequestStore
-                                                                      .date +
-                                                                  ' ' +
-                                                                  convertTo24HourFormat(
-                                                                      intevalsListBookings[
-                                                                              index]
-                                                                          [
-                                                                          'start']))
-                                                          ? Colors.white
-                                                          : !isSelected &&
-                                                                  selectedIndex !=
-                                                                      index
-                                                              ? Colors.white
-                                                              : Colors.green,
-                                                      fontSize: 16),
-                                                )),
-                                              ),
-                                            )
-                                          ],
-                                        )
-                                      ]),
-                                );
-                              },
-                            );
-                          },
-                          separatorBuilder: (context, index) {
-                            return SizedBox(
-                              height: 5,
-                            );
-                          },
-                          // itemCount: 1);
-                          itemCount: intevalsListBookings.length ?? 0);
+                                                                : Colors.green,
+                                                        fontSize: 16),
+                                                  )),
+                                                ),
+                                              )
+                                            ],
+                                          )
+                                        ]),
+                                  );
+                                },
+                              );
+                            },
+                            separatorBuilder: (context, index) {
+                              return SizedBox(
+                                height: 5,
+                              );
+                            },
+                            // itemCount: 1);
+                            itemCount: intevalsListBookings.length ?? 0);
+                      },
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      if (selectedIndex == -1) {
+                        toast('الرجاء اختيار موعد');
+                        return;
+                      }
+                      print(widget.employeeId);
+                      SelectServiceScreen(
+                        employeeId: widget.employeeId,
+                        BranchId: widget.BranchId,
+                        employeeName: widget.employeeName,
+                      ).launch(context);
                     },
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    if (selectedIndex == -1) {
-                      toast('الرجاء اختيار موعد');
-                      return;
-                    }
-                    print(widget.employeeId);
-                    SelectServiceScreen(
-                      employeeId: widget.employeeId,
-                      BranchId: widget.BranchId,
-                      employeeName: widget.employeeName,
-                    ).launch(context);
-                  },
-                  child: Container(
-                    height: context.height() / 15,
-                    margin: EdgeInsets.only(top: 5),
-                    // padding: EdgeInsets.symmetric(vertical: 10),
-                    decoration: BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Center(
-                        child: Text(
-                      locale.next,
-                      style: TextStyle(color: Colors.white, fontSize: 25),
-                    )),
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
+                    child: Container(
+                      height: context.height() / 15,
+                      margin: EdgeInsets.only(top: 5),
+                      // padding: EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Center(
+                          child: Text(
+                        locale.next,
+                        style: TextStyle(color: Colors.white, fontSize: 25),
+                      )),
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

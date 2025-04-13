@@ -10,14 +10,12 @@ import 'package:nb_utils/nb_utils.dart';
 import '../../../components/common_app_dialog.dart';
 import '../../../components/empty_error_state_widget.dart';
 import '../../../components/loader_widget.dart';
-import '../../../components/price_widget.dart';
 import '../../../main.dart';
 import '../../../paymentGateways/payment_repo.dart';
 import '../../../utils/common_base.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/model_keys.dart';
 import '../../booking/booking_repository.dart';
-import '../../booking/model/booking_request_model.dart';
 import '../../coupons/component/coupon_bottom_sheet_component.dart';
 import '../../dashboard/view/dashboard_screen.dart';
 import '../../services/component/services_info_list_component.dart';
@@ -148,7 +146,7 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
         children: [
           Container(
             height:
-                ShowPayment ? context.height() * 0.66 : context.height() * 0.8,
+                ShowPayment ? context.height() * 0.6 : context.height() * 0.6,
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -565,7 +563,7 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
                                                   );
                                                 },
                                               );
-                                              ;
+
                                             },
                                           ),
                                         ).then((value) => setState(() {}));
