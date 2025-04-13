@@ -93,7 +93,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                                     backgroundColor: Colors.black,
                                     automaticallyImplyLeading: true,
                                     leading: IconButton(
-                                      icon: Icon(Icons.arrow_back,
+                                      icon: Icon(Icons.arrow_back_ios,
                                           color: Colors.white),
                                       onPressed: () {
                                         finish(context);
