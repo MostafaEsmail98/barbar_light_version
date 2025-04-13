@@ -10,7 +10,11 @@ class ThemeSelectionDaiLog extends StatefulWidget {
 }
 
 class ThemeSelectionDaiLogState extends State<ThemeSelectionDaiLog> {
-  List<String> themeModeList = [locale.light, locale.dark, locale.systemDefault];
+  List<String> themeModeList = [
+    locale.light,
+    locale.dark,
+    locale.systemDefault
+  ];
 
   int? currentIndex = 0;
 
@@ -21,7 +25,8 @@ class ThemeSelectionDaiLogState extends State<ThemeSelectionDaiLog> {
   }
 
   Future<void> init() async {
-    currentIndex = getIntAsync(THEME_MODE_INDEX, defaultValue: ThemeConst.THEME_MODE_SYSTEM);
+    currentIndex = getIntAsync(THEME_MODE_INDEX,
+        defaultValue: ThemeConst.THEME_MODE_SYSTEM);
   }
 
   @override
@@ -33,6 +38,7 @@ class ThemeSelectionDaiLogState extends State<ThemeSelectionDaiLog> {
   Widget build(BuildContext context) {
     return Container(
       width: context.width(),
+      color: context.scaffoldBackgroundColor,
       child: Container(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -42,12 +48,15 @@ class ThemeSelectionDaiLogState extends State<ThemeSelectionDaiLog> {
               width: context.width(),
               decoration: boxDecorationDefault(
                 color: context.primaryColor,
-                borderRadius: radiusOnly(topRight: defaultRadius, topLeft: defaultRadius),
+                borderRadius:
+                    radiusOnly(topRight: defaultRadius, topLeft: defaultRadius),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(locale.chooseTheme, style: boldTextStyle(color: Colors.white)).flexible(),
+                  Text(locale.chooseTheme,
+                          style: boldTextStyle(color: Colors.white))
+                      .flexible(),
                   IconButton(
                     onPressed: () {
                       finish(context);
@@ -71,7 +80,8 @@ class ThemeSelectionDaiLogState extends State<ThemeSelectionDaiLog> {
                     currentIndex = val;
 
                     if (val == ThemeConst.THEME_MODE_SYSTEM) {
-                      appStore.setDarkMode(context.platformBrightness() == Brightness.dark);
+                      appStore.setDarkMode(
+                          context.platformBrightness() == Brightness.dark);
                     } else if (val == ThemeConst.THEME_MODE_LIGHT) {
                       appStore.setDarkMode(false);
                     } else if (val == ThemeConst.THEME_MODE_DARK) {

@@ -23,7 +23,7 @@ class CouponCardComponent extends StatelessWidget {
     return Container(
       height: 100,
       decoration: BoxDecoration(
-        color: Color(0xFFFFF9E6),
+          color: Color(0xFFFFF9E6),
         borderRadius: BorderRadius.circular(15),
         border: Border.all(
           color: Color(0xffDDBF5D),
@@ -48,10 +48,10 @@ class CouponCardComponent extends StatelessWidget {
                             Text(
                               "%",
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 16,color: Colors.black,
                               ),
                             ),
-                            Text(locale.discount),
+                            Text(locale.discount,style: TextStyle(color: Colors.black,),),
                           ],
                         ),
                         Text(
@@ -65,7 +65,7 @@ class CouponCardComponent extends StatelessWidget {
                     ),
                     Text(
                       couponTitle ?? "",
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(fontSize: 12,color: Colors.black,),
                     ),
                   ],
                 ),
@@ -93,7 +93,7 @@ class CouponCardComponent extends StatelessWidget {
                         couponCode ??"",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 16
+                          fontSize: 16,color: Colors.black,
                         ),
                       ),
                       PositionedDirectional(
@@ -104,7 +104,7 @@ class CouponCardComponent extends StatelessWidget {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 5),
                                 child: Text(locale.useCoupon,
-                                    style: TextStyle(fontSize: 14)),
+                                    style: TextStyle(fontSize: 14,color: Colors.black,)),
                               ))),
                     ],
                   ),
