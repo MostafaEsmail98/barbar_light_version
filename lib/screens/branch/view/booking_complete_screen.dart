@@ -1,3 +1,5 @@
+import 'dart:ui' as flutter;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -6,6 +8,7 @@ import 'package:frezka/components/app_scaffold.dart';
 import 'package:frezka/paymentGateways/services/paypal_service.dart';
 
 import 'package:frezka/paymentGateways/services/stripe_service.dart';
+import 'package:frezka/screens/experts/model/employee_detail_response.dart';
 
 import 'package:frezka/utils/colors.dart';
 import 'package:frezka/utils/images.dart';
@@ -19,19 +22,22 @@ import '../../../paymentGateways/services/flutter_wave_service.dart';
 import '../../../paymentGateways/services/paystack_service.dart';
 import '../../../paymentGateways/services/razor_pay_service.dart';
 
+import '../../../store/booking_request_store.dart';
 import '../../dashboard/view/dashboard_screen.dart';
 
 class BookingCompleteScreen extends StatefulWidget {
   final bool isReschedule;
-  final data;
+  final BookingRequestStore? data;
   final AllselectedServiceString;
   final paymentMethod;
+  final EmployeePhone;
+  final totalPrice;
 
   BookingCompleteScreen(
       {this.isReschedule = false,
-      this.data = 0,
+      this.data ,
       this.paymentMethod = '',
-      this.AllselectedServiceString = ''});
+      this.AllselectedServiceString = '', this.EmployeePhone, this.totalPrice});
 
   @override
   _BookingCompleteScreenState createState() => _BookingCompleteScreenState();
@@ -210,7 +216,7 @@ class _BookingCompleteScreenState extends State<BookingCompleteScreen> {
                                                   fontWeight: FontWeight.bold),
                                             ),
                                             Text(
-                                                widget.data.bookingId
+                                                widget.data!.bookingId
                                                     .toString(),
                                                 style: TextStyle(
                                                     color: Colors.grey))
@@ -225,9 +231,12 @@ class _BookingCompleteScreenState extends State<BookingCompleteScreen> {
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.bold),
                                             ),
-                                            Text(appStore.helplineNumber,
-                                                style: TextStyle(
-                                                    color: Colors.grey))
+                                            Directionality(
+                                              textDirection: flutter.TextDirection.ltr,
+                                              child: Text(widget.EmployeePhone.toString(),
+                                                  style: TextStyle(
+                                                      color: Colors.grey)),
+                                            )
                                           ]),
                                       Column(
                                           crossAxisAlignment:
@@ -240,7 +249,7 @@ class _BookingCompleteScreenState extends State<BookingCompleteScreen> {
                                                   fontWeight: FontWeight.bold),
                                             ),
                                             Text(
-                                                widget.data.employeeName
+                                                widget.data!.employeeName
                                                     .toString(),
                                                 style: TextStyle(
                                                     color: Colors.grey))
@@ -285,26 +294,26 @@ class _BookingCompleteScreenState extends State<BookingCompleteScreen> {
                                                 style: TextStyle(
                                                     color: Colors.grey))
                                           ]),
-                                      Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'المبلغ الكلي وطريقة الدفع',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Text(
-                                                widget.paymentMethod
-                                                        .toString() +
-                                                    '  دينار -  ' +
-                                                    (widget.data.totalAmount
-                                                            .toString() ??
-                                                        "0"),
+                                      FittedBox(
+                                        child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'المبلغ الكلي وطريقة الدفع',
                                                 style: TextStyle(
-                                                    color: Colors.grey))
-                                          ]),
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold),
+                                              ),
+                                              Text(
+                                                  widget.paymentMethod
+                                                          .toString() +
+                                                      '  دينار -  ' +
+                                                      (widget.totalPrice.toString()),
+                                                  style: TextStyle(
+                                                      color: Colors.grey))
+                                            ]),
+                                      ),
                                       Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -316,7 +325,7 @@ class _BookingCompleteScreenState extends State<BookingCompleteScreen> {
                                                   fontWeight: FontWeight.bold),
                                             ),
                                             Text(
-                                                "${widget.data.date} - ${widget.data.time}",
+                                                "${widget.data?.date} - ${widget.data?.time}",
                                                 style: TextStyle(
                                                     color: Colors.grey))
                                           ]),

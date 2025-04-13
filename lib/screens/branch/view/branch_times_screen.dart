@@ -22,12 +22,13 @@ class BranchTimesScreen extends StatefulWidget {
   final int BranchId;
   final int employeeId;
   final employeeName;
+  final employeePhone;
 
   const BranchTimesScreen(
       {super.key,
       required this.BranchId,
       required this.employeeId,
-      this.employeeName});
+      this.employeeName, required this.employeePhone});
 
   @override
   State<BranchTimesScreen> createState() => _BranchTimesScreenState();
@@ -625,6 +626,7 @@ class _BranchTimesScreenState extends State<BranchTimesScreen> {
                       }
                       print(widget.employeeId);
                       SelectServiceScreen(
+                        employeePhone: widget.employeePhone,
                         employeeId: widget.employeeId,
                         BranchId: widget.BranchId,
                         employeeName: widget.employeeName,

@@ -60,6 +60,7 @@ dependencies:
   #MAP
   geolocator: ^13.0.1
   geocoding: ^3.0.0
+  vibration: ^1.7.4
 
 
   # PAYMENT GATEWAYS

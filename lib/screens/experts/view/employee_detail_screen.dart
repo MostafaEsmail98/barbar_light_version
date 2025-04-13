@@ -9,7 +9,6 @@ import 'package:frezka/utils/images.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:photo_view/photo_view.dart';
 
-
 import '../../../components/app_scaffold.dart';
 import '../../../components/default_user_image_placeholder.dart';
 import '../../../components/empty_error_state_widget.dart';
@@ -72,7 +71,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
               loadingWidget: EmployeeDetailShimmer(),
               onSuccess: (snap) {
                 EmployeeData employeeData = snap.data!;
-
+                print(employeeData.mobile! + "+++++++++++");
                 return Column(
                   children: [
                     Expanded(
@@ -409,6 +408,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                     GestureDetector(
                       onTap: () {
                         BranchTimesScreen(
+                          employeePhone: employeeData.mobile,
                           BranchId: widget.branchId!,
                           employeeId: widget.employeeId,
                           employeeName: employeeData.fullName,

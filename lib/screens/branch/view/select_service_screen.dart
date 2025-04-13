@@ -26,12 +26,14 @@ class SelectServiceScreen extends StatefulWidget {
   final int BranchId;
   final int employeeId;
   final employeeName;
+  final employeePhone;
 
   const SelectServiceScreen(
       {super.key,
       required this.BranchId,
       required this.employeeId,
-      this.employeeName});
+      this.employeeName,
+      required this.employeePhone});
 
   @override
   State<SelectServiceScreen> createState() => _SelectServiceScreenState();
@@ -563,7 +565,6 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
                                                   );
                                                 },
                                               );
-
                                             },
                                           ),
                                         ).then((value) => setState(() {}));
@@ -699,6 +700,8 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
             context,
             MaterialPageRoute(
               builder: (context) => BookingCompleteScreen(
+                  EmployeePhone: widget.employeePhone,
+                  totalPrice: totalPrice,
                   paymentMethod: paymentMethod,
                   data: bookingRequestStore,
                   AllselectedServiceString: AllselectedServiceString),

@@ -147,9 +147,12 @@ class _EmployeeListComponentState extends State<EmployeeListComponent> {
                   print({
                     'BranchId': widget.branchId,
                     'employeeId': widget.expertData.id,
-                    'employeeName': widget.expertData.fullName
+                    'employeeName': widget.expertData.fullName,
+                    'mobile': widget.expertData.mobile,
                   });
+                  print("------///////////////---------------------------");
                   BranchTimesScreen(
+                    employeePhone: widget.expertData.mobile,
                     BranchId: widget.branchId,
                     employeeId: widget.expertData.id!,
                     employeeName: widget.expertData.fullName,
