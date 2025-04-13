@@ -24,7 +24,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace "com.metafortech.barbershop"
     compileSdkVersion 35
-    ndkVersion "27.0.12077973"
+    ndkVersion "29.0.13113456"
 
     kotlinOptions {
         jvmTarget = '1.8'

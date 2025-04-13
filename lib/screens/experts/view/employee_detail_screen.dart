@@ -3,26 +3,19 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:frezka/components/cached_image_widget.dart';
 import 'package:frezka/screens/branch/view/branch_times_screen.dart';
-import 'package:frezka/screens/experts/component/employee_social_accounts_component.dart';
 import 'package:frezka/screens/review/component/review_item_component.dart';
-import 'package:frezka/utils/app_common.dart';
-import 'package:frezka/utils/common_base.dart';
 import 'package:frezka/utils/extensions/string_extensions.dart';
 import 'package:frezka/utils/images.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:photo_view/photo_view.dart';
 
-import '../../../components/add_review_dialog.dart';
+
 import '../../../components/app_scaffold.dart';
 import '../../../components/default_user_image_placeholder.dart';
 import '../../../components/empty_error_state_widget.dart';
 import '../../../components/loader_widget.dart';
-import '../../../components/view_all_label_component.dart';
 import '../../../main.dart';
 import '../../../utils/colors.dart';
-import '../../../utils/constants.dart';
-import '../../review/view/review_all_screen.dart';
-import '../component/employee_list_component.dart';
 import '../employee_repository.dart';
 import '../model/employee_detail_response.dart';
 import '../shimmer/employee_detail_shimmer.dart';
@@ -98,7 +91,14 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                                       bottomRight: Radius.circular(20)),
                                   child: AppBar(
                                     backgroundColor: Colors.black,
-                                    automaticallyImplyLeading: false,
+                                    automaticallyImplyLeading: true,
+                                    leading: IconButton(
+                                      icon: Icon(Icons.arrow_back,
+                                          color: Colors.white),
+                                      onPressed: () {
+                                        finish(context);
+                                      },
+                                    ),
                                     flexibleSpace: Container(
                                       decoration: BoxDecoration(
                                           color: Colors.black,
