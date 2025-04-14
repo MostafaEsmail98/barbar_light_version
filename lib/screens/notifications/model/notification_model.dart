@@ -30,14 +30,16 @@ class NotificationListResponse {
 class NotificationData {
   NotificationModel? data;
   String? createdAt;
-  String? id;
+  String? body ;
+  String ? title;
+  int? id;
   int? notifiableId;
   String? notifiableType;
   String? readAt;
   String? type;
   String? updatedAt;
 
-  NotificationData({this.data, this.createdAt, this.id, this.notifiableId, this.notifiableType, this.readAt, this.type, this.updatedAt});
+  NotificationData({this.title,this.body,this.data, this.createdAt, this.id, this.notifiableId, this.notifiableType, this.readAt, this.type, this.updatedAt});
 
   factory NotificationData.fromJson(Map<String, dynamic> json) {
     return NotificationData(
@@ -49,6 +51,8 @@ class NotificationData {
       readAt: json['read_at'] != null ? json['read_at'] : null,
       type: json['type'],
       updatedAt: json['updated_at'],
+      body: json['body'],
+      title: json['title'],
     );
   }
 

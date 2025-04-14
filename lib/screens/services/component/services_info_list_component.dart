@@ -77,7 +77,7 @@ class _ServicesInfoListComponentState extends State<ServicesInfoListComponent> {
               isBoldText: true,
               price: widget.serviceInfo.defaultPrice.validate(),
               size: 17,
-              color: Color.fromARGB(255, 0, 0, 0),
+              color: context.textTheme.titleLarge!.color,
             ),
           ],
         ),

@@ -75,7 +75,7 @@ class _AddReviewDialogState extends State<AddReviewDialog> {
         SingleChildScrollView(
           child: Container(
             decoration: BoxDecoration(
-                color: Colors.white,
+                color: context.scaffoldBackgroundColor,
                 borderRadius: BorderRadius.all(Radius.circular(12))),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -91,7 +91,7 @@ class _AddReviewDialogState extends State<AddReviewDialog> {
                   child: Row(
                     children: [
                       Text(locale.yourReview,
-                              style: boldTextStyle(color: Colors.white))
+                              style: boldTextStyle())
                           .expand(),
                       IconButton(
                         icon: Icon(Icons.clear, color: Colors.white, size: 16),
@@ -111,7 +111,7 @@ class _AddReviewDialogState extends State<AddReviewDialog> {
                           boxDecorationDefault(color: context.cardColor),
                       child: Row(
                         children: [
-                          Text(locale.yourReview, style: secondaryTextStyle()),
+                          Text(locale.yourReview, style: primaryTextStyle(color: context.primaryColor)),
                           16.width,
                           RatingBarWidget(
                             onRatingChanged: (rating) {
@@ -130,6 +130,7 @@ class _AddReviewDialogState extends State<AddReviewDialog> {
                     16.height,
                     IntrinsicHeight(
                       child: Material(
+                        color: context.cardColor,
                         child: AppTextField(
                           controller: reviewCont,
                           textFieldType: TextFieldType.OTHER,

@@ -51,111 +51,120 @@ class _NotificationFragmentState extends State<NotificationFragment> {
   Widget build(BuildContext context) {
     return AppScaffold(
       showAppBar: false,
-      body: Column(
-        children: [
-          commonAppBarWidget(
-            context,
-            title: locale.notifications,
-            appBarHeight: 70,
-            color: Colors.transparent,
-            showLeadingIcon: true,
-            actions: [
-              if (showMarkAsReadButton)
-                IconButton(
-                  icon: Icon(Icons.clear_all_rounded, color: Colors.white),
-                  onPressed: () async {
-                    appStore.setLoading(true);
-
-                    init(flag: true, markAsRead: true);
-                  },
-                ),
-            ],
-          ),
-          Stack(
-            children: [
-              SnapHelperWidget<List<NotificationData>>(
-                future: future,
-                initialData: notificationListCached,
-                loadingWidget: NotificationShimmer(),
-                errorBuilder: (error) {
-                  return NoDataWidget(
-                    title: error,
-                    imageWidget: ErrorStateWidget(),
-                    retryText: locale.reload,
-                    onRetry: () {
-                      appStore.setLoading(true);
-
-                      init(flag: true);
-                    },
-                  );
-                },
-                onSuccess: (list) {
-                  return AnimatedListView(
-                    shrinkWrap: true,
-                    itemCount: list.length,
-                    padding: EdgeInsets.only(top: 8),
-                    slideConfiguration: SlideConfiguration(
-                        duration: 400.milliseconds, delay: 50.milliseconds),
-                    listAnimationType: ListAnimationType.FadeIn,
-                    fadeInConfiguration:
-                        FadeInConfiguration(duration: 2.seconds),
-                    physics: AlwaysScrollableScrollPhysics(),
-                    emptyWidget: NoDataWidget(
-                      title: locale.noNotifications,
-                      subTitle: locale.weLlNotifyYouOnce,
-                      imageWidget: EmptyStateWidget(),
-                    ),
-                    onSwipeRefresh: () {
-                      appStore.setLoading(true);
-
-                      init(flag: true);
-                      return Future.value(true);
-                    },
-                    itemBuilder: (context, index) {
-                      NotificationData notificationData = list[index];
-
-                      return GestureDetector(
-                        onTap: () async {
-                          /// Tap on notification redirect to booking detail screen
-                          if (notificationData.data!.notificationDetail!.id
-                                  .validate() >
-                              0) {
-                            if (notificationData.data!.notificationDetail!
-                                    .notificationGroup ==
-                                "shop") {
-                              OrderDetailScreen(
-                                      orderId: notificationData
-                                          .data!.notificationDetail!.id
-                                          .validate(),
-                                      orderCode: notificationData
-                                          .data!.notificationDetail!.orderCode
-                                          .validate())
-                                  .launch(context,
-                                      pageRouteAnimation:
-                                          PageRouteAnimation.Fade);
-                            } else {
-                              BookingDetailScreen(
-                                      bookingId: notificationData
-                                          .data!.notificationDetail!.id
-                                          .validate()
-                                          .toInt())
-                                  .launch(context);
-                            }
-                          }
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Column(
+              children: [
+                commonAppBarWidget(
+                  context,
+                  title: locale.notifications,
+                  appBarHeight: 70,
+                  color: Colors.transparent,
+                  showLeadingIcon: true,
+                  actions: [
+                    if (showMarkAsReadButton)
+                      IconButton(
+                        icon: Icon(Icons.clear_all_rounded, color: Colors.white),
+                        onPressed: () async {
+                          appStore.setLoading(true);
+            
+                          init(flag: true, markAsRead: true);
                         },
-                        child: NotificationWidget(
-                            notificationData: notificationData),
-                      );
-                    },
-                  );
-                },
-              ),
-              Observer(
-                  builder: (context) =>
-                      LoaderWidget().visible(appStore.isLoading)),
-            ],
-          ),
-        ],
+                      ),
+                  ],
+                ),
+                Stack(
+                  children: [
+                    SnapHelperWidget<List<NotificationData>>(
+                      future: future,
+                      initialData: notificationListCached,
+                      loadingWidget: NotificationShimmer(),
+                      errorBuilder: (error) {
+                        return NoDataWidget(
+                          title: error,
+                          imageWidget: ErrorStateWidget(),
+                          retryText: locale.reload,
+                          onRetry: () {
+                            appStore.setLoading(true);
+            
+                            init(flag: true);
+                          },
+                        );
+                      },
+                      onSuccess: (list) {
+                        return AnimatedListView(
+                          shrinkWrap: true,
+                          itemCount: list.length,
+                          padding: EdgeInsets.only(top: 8),
+                          slideConfiguration: SlideConfiguration(
+                              duration: 400.milliseconds, delay: 50.milliseconds),
+                          listAnimationType: ListAnimationType.FadeIn,
+                          fadeInConfiguration:
+                              FadeInConfiguration(duration: 2.seconds),
+                          physics: NeverScrollableScrollPhysics(),
+                          emptyWidget: NoDataWidget(
+                            title: locale.noNotifications,
+                            subTitle: locale.weLlNotifyYouOnce,
+                            imageWidget: EmptyStateWidget(),
+                          ),
+                          onSwipeRefresh: () {
+                            appStore.setLoading(true);
+            
+                            init(flag: true);
+                            return Future.value(true);
+                          },
+                          itemBuilder: (context, index) {
+                            NotificationData notificationData = list[index];
+            
+                            return GestureDetector(
+                              onTap: () async {
+                                /// Tap on notification redirect to booking detail screen
+                                if (notificationData.data!.notificationDetail!.id
+                                        .validate() >
+                                    0) {
+                                  if (notificationData.data!.notificationDetail!
+                                          .notificationGroup ==
+                                      "shop") {
+                                    OrderDetailScreen(
+                                            orderId: notificationData
+                                                .data!.notificationDetail!.id
+                                                .validate(),
+                                            orderCode: notificationData
+                                                .data!.notificationDetail!.orderCode
+                                                .validate())
+                                        .launch(context,
+                                            pageRouteAnimation:
+                                                PageRouteAnimation.Fade);
+                                  } else {
+                                    BookingDetailScreen(
+                                            bookingId: notificationData
+                                                .data!.notificationDetail!.id
+                                                .validate()
+                                                .toInt())
+                                        .launch(context);
+                                  }
+                                }
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: NotificationWidget(
+                                    notificationData: notificationData),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                    Observer(
+                        builder: (context) =>
+                            LoaderWidget().visible(appStore.isLoading)),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

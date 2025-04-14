@@ -11,7 +11,6 @@ class NotificationWidget extends StatelessWidget {
 
   NotificationWidget({required this.notificationData});
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,15 +28,10 @@ class NotificationWidget extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (notificationData.data != null && notificationData.data!.notificationDetail != null) Text('#${notificationData.data!.notificationDetail!.id.validate()}', style: boldTextStyle(size: 12)).expand(),
-                  Text(formatDate(notificationData.createdAt.validate()), style: secondaryTextStyle()),
-                ],
-              ),
-              8.height,
-              Text(notificationData.data!.subject.validate(), style: secondaryTextStyle(), maxLines: 3, overflow: TextOverflow.ellipsis),
+              Text(notificationData.body.validate(),
+                  style: secondaryTextStyle(),
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis),
             ],
           ).expand(),
         ],

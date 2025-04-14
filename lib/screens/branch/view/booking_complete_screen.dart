@@ -35,9 +35,11 @@ class BookingCompleteScreen extends StatefulWidget {
 
   BookingCompleteScreen(
       {this.isReschedule = false,
-      this.data ,
+      this.data,
       this.paymentMethod = '',
-      this.AllselectedServiceString = '', this.EmployeePhone, this.totalPrice});
+      this.AllselectedServiceString = '',
+      this.EmployeePhone,
+      this.totalPrice});
 
   @override
   _BookingCompleteScreenState createState() => _BookingCompleteScreenState();
@@ -232,8 +234,11 @@ class _BookingCompleteScreenState extends State<BookingCompleteScreen> {
                                                   fontWeight: FontWeight.bold),
                                             ),
                                             Directionality(
-                                              textDirection: flutter.TextDirection.ltr,
-                                              child: Text(widget.EmployeePhone.toString(),
+                                              textDirection:
+                                                  flutter.TextDirection.ltr,
+                                              child: Text(
+                                                  widget.EmployeePhone
+                                                      .toString(),
                                                   style: TextStyle(
                                                       color: Colors.grey)),
                                             )
@@ -303,13 +308,15 @@ class _BookingCompleteScreenState extends State<BookingCompleteScreen> {
                                                 'المبلغ الكلي وطريقة الدفع',
                                                 style: TextStyle(
                                                     color: Colors.black,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                               Text(
                                                   widget.paymentMethod
                                                           .toString() +
                                                       '  دينار -  ' +
-                                                      (widget.totalPrice.toString()),
+                                                      (widget.totalPrice
+                                                          .toString()),
                                                   style: TextStyle(
                                                       color: Colors.grey))
                                             ]),
@@ -372,7 +379,7 @@ class _BookingCompleteScreenState extends State<BookingCompleteScreen> {
                                   height: 100, width: 100, color: primaryColor),
                               5.height,
                               Text(locale.yourBookingForHairBookingMessage,
-                                  style: boldTextStyle(size: 20),
+                                  style: boldTextStyle(size: 20,color: Colors.black),
                                   textAlign: TextAlign.center),
                             ],
                           ),
@@ -394,7 +401,10 @@ class _BookingCompleteScreenState extends State<BookingCompleteScreen> {
                   color: Colors.white,
                 ),
                 alignment: Alignment.center,
-                child: Text('سيتم إرسال لك رسالة نصية و إشعار قبل موعدك بساعة'),
+                child: Text(
+                  'سيتم إرسال لك رسالة نصية و إشعار قبل موعدك بساعة',
+                  style: TextStyle(color: Colors.black),
+                ),
               )
             ],
           ),
