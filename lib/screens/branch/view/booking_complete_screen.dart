@@ -379,7 +379,8 @@ class _BookingCompleteScreenState extends State<BookingCompleteScreen> {
                                   height: 100, width: 100, color: primaryColor),
                               5.height,
                               Text(locale.yourBookingForHairBookingMessage,
-                                  style: boldTextStyle(size: 20,color: Colors.black),
+                                  style: boldTextStyle(
+                                      size: 20, color: Colors.black),
                                   textAlign: TextAlign.center),
                             ],
                           ),
@@ -392,20 +393,18 @@ class _BookingCompleteScreenState extends State<BookingCompleteScreen> {
                   ],
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(top: 15),
-                height: context.height() / 14,
-                width: context.width() / 1.2,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(18),
-                  color: Colors.white,
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  'سيتم إرسال لك رسالة نصية و إشعار قبل موعدك بساعة',
-                  style: TextStyle(color: Colors.black),
-                ),
-              )
+              12.height,
+              AppButton(
+                child: Text(locale.goToBookings.validate(),
+                    style: boldTextStyle(color: white)),
+                color: primaryColor,
+                width: context.width(),
+                onTap: () {
+                  finish(context);
+                  DashboardScreen(pageIndex: 0)
+                      .launch(context, isNewTask: true);
+                },
+              ),
             ],
           ),
         ),

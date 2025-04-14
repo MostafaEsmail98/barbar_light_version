@@ -7,9 +7,10 @@ import 'package:frezka/utils/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../../../components/common_app_dialog.dart';
 import '../../../components/empty_error_state_widget.dart';
 import '../../../components/loader_widget.dart';
+import '../../../components/new_dialog.dart';
+import '../../../components/vibration.dart';
 import '../../../main.dart';
 import '../../../paymentGateways/payment_repo.dart';
 import '../../../utils/common_base.dart';
@@ -693,8 +694,9 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
       savePayment(
               bookingId: bookingRequestStore.bookingId.validate(),
               isPackageReclaim: bookingRequestStore.isPackageReclaim)
-          .then((value) {
-        finish(context);
+          .then((value) async {
+        showBookingCompleteDialog();
+        await Future.delayed(Duration(seconds: 2));
         finish(context);
         Navigator.push(
             context,
@@ -706,7 +708,6 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
                   data: bookingRequestStore,
                   AllselectedServiceString: AllselectedServiceString),
             ));
-        // showBookingCompleteDialog();
       }).catchError((e) {
         toast(e.toString());
       });
@@ -732,19 +733,16 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
     );
   }
 
-  void showBookingCompleteDialog() {
+  void showBookingCompleteDialog() async {
+    await handleVibration();
     showDialog(
       context: context,
       useSafeArea: false,
       builder: (BuildContext context) => CommonAppDialog(
         title: '${locale.bookingSuccessful}',
+        subTitle2: locale.receiveATextMessage,
         subTitle:
-            '${locale.yourBookingFor} ${bookingRequestStore.isPackagePurchase ? bookingRequestStore.selectedPackageList.map((e) => e.name.validate()).toList().join(', ') : bookingRequestStore.selectedServiceList.validate().map((e) => e.name.validate()).toList().join(', ')} has been successfully booked',
-        buttonText: locale.goToBookings,
-        onTap: () {
-          finish(context);
-          DashboardScreen(pageIndex: 0).launch(context, isNewTask: true);
-        },
+            '${locale.yourBookingFor} ${bookingRequestStore.isPackagePurchase ? bookingRequestStore.selectedPackageList.map((e) => e.name.validate()).toList().join(', ') : bookingRequestStore.selectedServiceList.validate().map((e) => e.name.validate()).toList().join(', ')} ${locale.hasBeenSuccessfullyBooked}',
       ),
     );
   }

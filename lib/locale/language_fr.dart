@@ -1673,4 +1673,12 @@ class LanguageFr extends BaseLanguage {
   @override
   // TODO: implement enterYourNumber
   String get enterYourNumber => throw UnimplementedError();
+
+  @override
+  // TODO: implement hasBeenSuccessfullyBooked
+  String get hasBeenSuccessfullyBooked => throw UnimplementedError();
+
+  @override
+  // TODO: implement receiveATextMessage
+  String get receiveATextMessage => throw UnimplementedError();
 }

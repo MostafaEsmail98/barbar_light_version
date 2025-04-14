@@ -1641,4 +1641,12 @@ class LanguageAr extends BaseLanguage {
   @override
   // TODO: implement enterYourNumber
   String get enterYourNumber => "ادخل رقم الهاتف";
+
+  @override
+  // TODO: implement hasBeenSuccessfullyBooked
+  String get hasBeenSuccessfullyBooked => "تم الحجز بنجاح";
+
+  @override
+  // TODO: implement receiveATextMessage
+  String get receiveATextMessage => 'سيتم إرسال لك رسالة نصية و إشعار قبل موعدك بساعة';
 }

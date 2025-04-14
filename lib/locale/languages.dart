@@ -1040,4 +1040,6 @@ abstract class BaseLanguage {
   String get confirmReservation;
   String get sendCode;
   String get enterYourNumber;
+  String get hasBeenSuccessfullyBooked;
+  String get receiveATextMessage;
 }

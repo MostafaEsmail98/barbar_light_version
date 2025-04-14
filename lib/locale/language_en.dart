@@ -1663,4 +1663,12 @@ class LanguageEn extends BaseLanguage {
   @override
   // TODO: implement enterYourNumber
   String get enterYourNumber => "Enter Your Number";
+
+  @override
+  // TODO: implement hasBeenSuccessfullyBooked
+  String get hasBeenSuccessfullyBooked => "has been successfully booked";
+
+  @override
+  // TODO: implement receiveATextMessage
+  String get receiveATextMessage => "You will receive a text message and an hour's notice of your appointment.";
 }
