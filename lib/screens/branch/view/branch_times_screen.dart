@@ -28,7 +28,8 @@ class BranchTimesScreen extends StatefulWidget {
       {super.key,
       required this.BranchId,
       required this.employeeId,
-      this.employeeName, required this.employeePhone});
+      this.employeeName,
+      required this.employeePhone});
 
   @override
   State<BranchTimesScreen> createState() => _BranchTimesScreenState();
@@ -36,6 +37,7 @@ class BranchTimesScreen extends StatefulWidget {
 
 class _BranchTimesScreenState extends State<BranchTimesScreen> {
   Future<BranchConfigurationResponse>? futureTimeSlotList;
+  List<SlotData>? slot;
 
   String convertTo24HourFormat(String time12h) {
     try {
@@ -63,6 +65,13 @@ class _BranchTimesScreenState extends State<BranchTimesScreen> {
 
   Future<BranchConfigurationResponse>? fetchBranchConfigurationApi() {
     futureTimeSlotList = getBranchConfiguration(widget.BranchId);
+    futureTimeSlotList!.then((value) {
+      if (value.status == true) {
+        slot = value.data!.slot;
+      }
+    }).catchError((error) {
+      toast(error.toString());
+    });
     print("--------------------");
     print(futureTimeSlotList);
     print("--------------------");
@@ -199,41 +208,6 @@ class _BranchTimesScreenState extends State<BranchTimesScreen> {
     });
   }
 
-  // void selectDay(int index) {
-  //   setState(() {
-  //     selectedDayIndex = index + DateTime.now().day;
-  //   });
-
-  //   selectedHorizontalDate = DateTime(
-  //       selectedHorizontalDate.year, selectedMonthIndex + 1, selectedDayIndex);
-
-  //   bookingRequestStore.setDateInRequest(selectedHorizontalDate
-  //       .setFormattedDate(DateFormatConst.DATE_FORMAT_5)
-  //       .toString());
-  //   print('selectedHorizontalDate');
-  //   print(selectedHorizontalDate);
-  //   var conf = fetchBranchConfigurationApi();
-  //   conf!.then((onValue) {
-  //     print("################################");
-  //     print(onValue);
-  //     print("################################");
-  //     var start_time =
-  //         onValue.data!.slot![selectedHorizontalDate.weekday].startTime;
-  //     if (DateTime.now().day == selectedDayIndex) {
-  //       start_time = DateTime.now().hour.toString() + ':00';
-  //     }
-  //     onValue.data!.slot![selectedHorizontalDate.weekday];
-  //     var intevalsListBookingsnew = splitIntoHourlyMaps(start_time,
-  //         onValue.data!.slot![selectedHorizontalDate.weekday].endTime);
-  //     setState(() {
-  //       intevalsListBookings = intevalsListBookingsnew;
-  //       startTime = start_time.toString();
-  //       endTime = onValue.data!.slot![selectedHorizontalDate.weekday].endTime
-  //           .toString();
-  //     });
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
@@ -319,12 +293,13 @@ class _BranchTimesScreenState extends State<BranchTimesScreen> {
                         ),
                         GestureDetector(
                           onTap: () => changeMonth(-1),
-                          child: Icon(Icons.arrow_back_ios, color: Colors.white),
+                          child:
+                              Icon(Icons.arrow_back_ios, color: Colors.white),
                         ),
                         GestureDetector(
                           onTap: () => changeMonth(1),
-                          child:
-                              Icon(Icons.arrow_forward_ios, color: Colors.white),
+                          child: Icon(Icons.arrow_forward_ios,
+                              color: Colors.white),
                         ),
                       ],
                     ),
@@ -343,12 +318,18 @@ class _BranchTimesScreenState extends State<BranchTimesScreen> {
                               selectedDayIndex == index + DateTime.now().day;
                           return GestureDetector(
                             onTap: () {
-                              selectDay(index: index);
+                              if (slot?[index + 1].isHoliday == 1) {
+                                toast('اليوم عطلة');
+                                return;
+                              } else {
+                                selectDay(index: index);
+                              }
                             },
                             child: Container(
                               width: 60,
                               height: 90,
-                              margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 5.0),
                               decoration: BoxDecoration(
                                 color: isSelected ? primaryColor : Colors.white,
                                 borderRadius: BorderRadius.circular(50),
@@ -422,50 +403,13 @@ class _BranchTimesScreenState extends State<BranchTimesScreen> {
                             },
                           );
                         }
-        
-                        // if (snap.data!.slot.validate().any((element) =>
-                        //     element.day ==
-                        //     selectedHorizontalDate.weekday.getWeekDayName)) {
-                        //   startTime = snap.data!.slot
-                        //       .validate()
-                        //       .firstWhere((element) =>
-                        //           element.day ==
-                        //           selectedHorizontalDate.weekday.getWeekDayName)
-                        //       .startTime
-                        //       .validate();
-                        //   endTime = snap.data!.slot
-                        //       .validate()
-                        //       .firstWhere((element) =>
-                        //           element.day ==
-                        //           selectedHorizontalDate.weekday.getWeekDayName)
-                        //       .endTime
-                        //       .validate();
-                        //   appStore.setLoading(true);
-                        // }
-        
+
                         return ListView.separated(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 10),
                             itemBuilder: (context, index) {
                               bool isSelected = selectedIndex == index;
-                              // print(dayToNumber(
-                              //     snap.data?.slot?[index].day.toString()));
-                              //  snap.data?.slot?[index].day!=
-                              // return dayToNumber(snap.data?.slot?[index].id
-                              //             .toString()) ==
-                              // var dayindexedbook = dayToNumber(
-                              //     snap.data?.slot?[index].day.toString());
-                              // var intevalsList = splitIntoHourlyMaps(
-                              //     snap.data?.slot?[dayindexedbook].startTime
-                              //         .toString(),
-                              //     snap.data?.slot?[dayindexedbook].endTime);
-                              // var element;
-                              // print('intevalsList');
-                              // print(intevalsList);
-        
-                              // element = intevalsList[0];
-                              // print('element');
-                              // print(element);
+
                               return StatefulBuilder(
                                 builder: (BuildContext context,
                                     StateSetter setStates) {
@@ -477,7 +421,8 @@ class _BranchTimesScreenState extends State<BranchTimesScreen> {
                                               intevalsListBookings[index]
                                                   ['start']));
                                       print(convertTo24HourFormat(
-                                          intevalsListBookings[index]['start']));
+                                          intevalsListBookings[index]
+                                              ['start']));
                                       print(reserved_periods);
                                       print(bookingRequestStore.date);
                                       if (reserved_periods.contains(
@@ -496,11 +441,13 @@ class _BranchTimesScreenState extends State<BranchTimesScreen> {
                                         bookingRequestStore.setTimeInRequest(
                                             intevalsListBookings[index]['start']
                                                 .toString());
-                                        print(intevalsListBookings[index]['start']
+                                        print(intevalsListBookings[index]
+                                                ['start']
                                             .toString());
                                       } else {
                                         setState(() => selectedIndex = -1);
-                                        bookingRequestStore.setTimeInRequest('');
+                                        bookingRequestStore
+                                            .setTimeInRequest('');
                                       }
                                     },
                                     child: Column(
@@ -511,8 +458,8 @@ class _BranchTimesScreenState extends State<BranchTimesScreen> {
                                             fit: BoxFit.scaleDown,
                                             child: Text(
                                               "${intevalsListBookings[index]['start']} - ${intevalsListBookings[index]['end']}",
-                                              style:
-                                                  TextStyle(color: Colors.black),
+                                              style: TextStyle(
+                                                  color: Colors.black),
                                             ),
                                           ),
                                           Row(
@@ -530,11 +477,7 @@ class _BranchTimesScreenState extends State<BranchTimesScreen> {
                                                       vertical: 10),
                                                   decoration: BoxDecoration(
                                                       border: Border.all(
-                                                          color: reserved_periods.contains(bookingRequestStore
-                                                                      .date +
-                                                                  ' ' +
-                                                                  convertTo24HourFormat(intevalsListBookings[index]
-                                                                      ['start']))
+                                                          color: reserved_periods.contains(bookingRequestStore.date + ' ' + convertTo24HourFormat(intevalsListBookings[index]['start']))
                                                               ? Colors.red
                                                               : (!isSelected &&
                                                                       selectedIndex !=
@@ -542,33 +485,22 @@ class _BranchTimesScreenState extends State<BranchTimesScreen> {
                                                                   ? Colors.white
                                                                   : Colors
                                                                       .green)),
-                                                      color:
-                                                          // snap
-                                                          //             .data
-                                                          //             ?.slot?[
-                                                          //                 dayindexedbook]
-                                                          //             .slotAvailability(
-                                                          //                 selectedHorizontalDate) ??
-                                                          !reserved_periods.contains(
-                                                                  bookingRequestStore
-                                                                          .date +
-                                                                      ' ' +
-                                                                      convertTo24HourFormat(
-                                                                          intevalsListBookings[index]['start']))
-                                                              ? isSelected && selectedIndex == index
-                                                                  ? Colors.white
-                                                                  : primaryColor
-                                                              : redColor,
-                                                      borderRadius: BorderRadius.circular(15)),
+                                                      color: !reserved_periods.contains(
+                                                              bookingRequestStore.date +
+                                                                  ' ' +
+                                                                  convertTo24HourFormat(
+                                                                      intevalsListBookings[index][
+                                                                          'start']))
+                                                          ? isSelected &&
+                                                                  selectedIndex ==
+                                                                      index
+                                                              ? Colors.white
+                                                              : primaryColor
+                                                          : redColor,
+                                                      borderRadius:
+                                                          BorderRadius.circular(15)),
                                                   child: Center(
                                                       child: Text(
-                                                    // !(snap
-                                                    //             .data
-                                                    //             ?.slot?[
-                                                    //                 dayindexedbook]
-                                                    //             .slotAvailability(
-                                                    //                 selectedHorizontalDate) ??
-                                                    //         false)
                                                     reserved_periods.contains(
                                                             bookingRequestStore
                                                                     .date +
@@ -587,8 +519,7 @@ class _BranchTimesScreenState extends State<BranchTimesScreen> {
                                                                         .date +
                                                                     ' ' +
                                                                     convertTo24HourFormat(
-                                                                        intevalsListBookings[
-                                                                                index]
+                                                                        intevalsListBookings[index]
                                                                             [
                                                                             'start']))
                                                             ? Colors.white
@@ -668,89 +599,6 @@ int dayToNumber(String? day) {
   };
   return days[day] ?? -1; // Returns -1 if the day is invalid
 }
-
-// void main() {
-//   // Example usage
-//   String startTime = "09:30"; // 9:30 AM
-//   String endTime = "14:15";   // 2:15 PM
-
-//   List<Map<String, String>> hourlyIntervals = splitIntoHourlyMaps(startTime, endTime);
-
-//   // Print results
-//   for (var interval in hourlyIntervals) {
-//     print("Start: ${interval['start']} - End: ${interval['end']}");
-//   }
-// }
-// void main() {
-//   // Example usage
-//   String startTime = "09:30:00"; // 9:30 AM
-//   String endTime = "14:15:00"; // 2:15 PM
-
-//   List<Map<String, String>> hourlyIntervals =
-//       splitIntoHourlyMaps(startTime, endTime);
-
-//   // Print results
-//   for (var interval in hourlyIntervals) {
-//     print("Start: ${interval['start']} - End: ${interval['end']}");
-//   }
-// }
-
-// List<Map<String, String>> splitIntoHourlyMaps(String start, String end) {
-//   final format = DateFormat('HH:mm');
-//   DateTime startTime = format.parse(start);
-//   DateTime endTime = format.parse(end);
-
-//   // Handle overnight slots
-//   if (endTime.isBefore(startTime)) {
-//     endTime = endTime.add(Duration(days: 1));
-//   }
-
-//   List<Map<String, String>> intervals = [];
-//   DateTime current = startTime;
-
-//   while (current.isBefore(endTime)) {
-//     DateTime next = current.add(Duration(hours: 1));
-//     if (next.isAfter(endTime)) next = endTime;
-
-//     intervals.add({
-//       'start': format.format(current),
-//       'end': format.format(next),
-//     });
-
-//     current = next;
-//   }
-
-//   return intervals;
-// }
-
-// List<Map<String, String>> splitIntoHourlyMaps(String start, String end) {
-//   final inputFormat = DateFormat('HH:mm'); // input in 24-hour
-//   final outputFormat = DateFormat('ha'); // output like 1AM, 2PM
-
-//   DateTime startTime = inputFormat.parse(start);
-//   DateTime endTime = inputFormat.parse(end);
-
-//   if (endTime.isBefore(startTime)) {
-//     endTime = endTime.add(Duration(days: 1));
-//   }
-
-//   List<Map<String, String>> intervals = [];
-//   DateTime current = startTime;
-
-//   while (current.isBefore(endTime)) {
-//     DateTime next = current.add(Duration(hours: 1));
-//     if (next.isAfter(endTime)) next = endTime;
-
-//     intervals.add({
-//       'start': outputFormat.format(current).toLowerCase(),
-//       'end': outputFormat.format(next).toLowerCase(),
-//     });
-
-//     current = next;
-//   }
-
-//   return intervals;
-// }
 
 List<Map<String, String>> splitIntoHourlyMaps(String start, String end) {
   final inputFormat = DateFormat('HH:mm');

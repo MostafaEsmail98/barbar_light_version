@@ -1,0 +1,2 @@
+D:/barbar light version/android/app/.cxx/RelWithDebInfo/2m2s5h2n/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/barbar light version/android/app/.cxx/RelWithDebInfo/2m2s5h2n/armeabi-v7a/CMakeFiles/rebuild_cache.dir
