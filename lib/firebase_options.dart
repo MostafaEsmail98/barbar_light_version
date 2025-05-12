@@ -50,19 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCfeeCJFSVMUHM3yg_OC3qqqm2xDz-UTGY',
-    appId: '1:259491379925:android:d19e5c1eb9b77b9b22805c',
-    messagingSenderId: '259491379925',
-    projectId: 'barabar-app',
-    storageBucket: 'barabar-app.firebasestorage.app',
+    apiKey: 'AIzaSyByYEc1A35dD0OyZH5A_fIbjkG2SKR0GAM',
+    appId: '1:727378178759:android:b7f13615c5abf8a77684e2',
+    messagingSenderId: '727378178759',
+    projectId: 'barber-shop-20659',
+    storageBucket: 'barber-shop-20659.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCymx2hoxVolV7nwUghsU55HwW_fa5v5xk',
-    appId: '1:259491379925:ios:a038c8061635893522805c',
-    messagingSenderId: '259491379925',
-    projectId: 'barabar-app',
-    storageBucket: 'barabar-app.firebasestorage.app',
-    iosBundleId: 'com.frezka.user',
+    apiKey: 'AIzaSyBo4j-_m_IJRp_Ond9LMQkngtRMYnaIIqo',
+    appId: '1:727378178759:ios:9ac9d0053d18c8b37684e2',
+    messagingSenderId: '727378178759',
+    projectId: 'barber-shop-20659',
+    storageBucket: 'barber-shop-20659.firebasestorage.app',
+    iosBundleId: 'com.metafortech.barbershop.app',
   );
+
 }

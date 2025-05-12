@@ -22,7 +22,7 @@ if (keystorePropertiesFile.exists()) {
 
 
 android {
-    namespace "com.metafortech.barbershop"
+    namespace "com.metafortech.barbershop.app"
     compileSdkVersion 35
     ndkVersion "29.0.13113456"
 
@@ -40,12 +40,12 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.metafortech.barbershop"
+        applicationId "com.metafortech.barbershop.app"
         minSdkVersion 23
         // minSdkVersion 21
         targetSdkVersion 34
-        versionCode 21
-        versionName "3.4.1"
+        versionCode 23
+        versionName "3.4.2"
         multiDexEnabled true
     }
 
@@ -60,7 +60,7 @@ android {
 
     buildTypes {
         release {
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
